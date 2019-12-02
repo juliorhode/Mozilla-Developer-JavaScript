@@ -1,0 +1,57 @@
+<!-- 
+    Variables: son contenedores para un valor, bien sea numero o cadena de texto y pueden cambiar a lo largo del programa. Estas se declaran con var o let.
+
+    
+
+
+
+    
+-->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Variables</title>
+</head>
+<body>
+    <script>
+        // variable numerica
+        let edad = 40;
+        console.log(edad);
+
+        // variable de cadena
+        let nombre = 'julio';
+        console.log(nombre);
+        
+        // variable booleana
+        let status = true;
+        console.log(status);
+
+        // variable array
+        let nombres = ['julio', 'cesar', 'adrianno'];
+        let edades = [10, 20, 30];
+        console.log(nombres[1]);
+        console.log(edades[2]);
+
+        // variable objeto
+        let perro = {nombre : 'ice', raza : 'Dalmata'};
+        console.log(perro.nombre);
+        console.log(perro.raza);
+        
+        let numero = '400';
+        // typeof retorna el tipo de dato de la variable
+        console.log(typeof(numero));
+        numero = 400;
+        console.log(typeof(numero));
+
+        // constantes
+        const diaSemana = 7;
+        const horasDia = 24;
+        
+        // dara un error ya que las constantes no se les puede cambiar el valor
+        diaSemana = 8;
+        console.log(diaSemana);
+        
+    </script>
+</body>
+</html>

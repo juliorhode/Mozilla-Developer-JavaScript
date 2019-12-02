@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Condicional IF</title>
+</head>
+<body>
+    <label for="clima">Seleccione el tipo de clima de hoy:</label>
+    <select id="clima">
+        <option value="">--Haga una seleccion--</option>
+        <option value="soleado">Soleado</option>
+        <option value="lluvioso">Lluvioso</option>
+        <option value="llovisna">Llovisna</option>
+        <option value="nevando">Nevando</option>
+        <option value="nublado">Nublado</option>
+    </select>
+
+    <p></p>
+
+    <script>
+        var seleccion = document.querySelector('select');
+        var parrafo = document.querySelector('p');
+
+        seleccion.addEventListener('change',estableceClima);
+
+        function estableceClima(e){
+            console.log(e.target.value);
+            var temperatura = 40;
+
+            if (e.target.value == 'soleado' && temperatura < 41) {
+                parrafo.textContent = 'El día esta agradable y soleado hoy. ¡Use pantalones cortos! Ve a la playa o al parque y come un helado.';
+            } else if (e.target.value == 'lluvioso' || e.target.value == 'llovisna') {
+                parrafo.textContent = 'Está lloviendo, tome un abrigo para lluvia y un paraguas, y no se quede por fuera mucho tiempo.';
+            } else if (e.target.value == 'nevando') {
+                parrafo.textContent = 'Está nevando ─ ¡está congelando! Lo mejor es quedarse en casa con una taza caliente de chocolate, o hacer un muñeco de nieve.';
+            } else if (e.target.value == 'nublado') {
+                parrafo.textContent = 'No está lloviendo, pero el cielo está gris y nublado; podría llover en cualquier momento, así que lleve un saco solo por si acaso.';
+            } else{
+                parrafo.textContent = "";
+            }
+        }
+    </script>
+</body>
+</html>

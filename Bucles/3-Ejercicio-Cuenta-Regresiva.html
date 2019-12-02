@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+</head>
+<body>
+    <div class="output">
+    </div>
+
+    <script>
+        const salida = document.querySelector('.output');
+        salida.innerHTML = '';
+        
+        
+
+        let i = 10;
+
+        while (i >= 0) {
+            const parrafo = document.createElement('p');
+            if (i === 10) {
+                parrafo.textContent = 'CountDown ' + i;
+            }else if (i>0) {
+                parrafo.textContent =  i;
+            } else {
+                parrafo.textContent = 'Despegue!!! ';
+            }
+                salida.appendChild(parrafo);
+                i--;
+        }
+        // const para = document.createElement('p');  
+        // para.textContent = ;
+        // output.appendChild(para);
+    </script>
+
+</body>
+</html>

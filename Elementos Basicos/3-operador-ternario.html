@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Operador Ternario</title>
+</head>
+<body>
+    <label for="tema">Selecciona un tema</label>
+    <select id="tema">
+            <option value="">--Selecciona--</option>
+        <option value="blanco">Blanco</option>
+        <option value="negro">Negro</option>
+    </select>
+
+    <h1>Uso del operador ternario</h1>
+
+    <script>
+        var seleccion = document.querySelector('select');
+        var documento = document.querySelector('html');
+
+        function actualizaColor(bgcolor, textColor) {
+            documento.style.backgroundColor = bgcolor;
+            documento.style.color = textColor;
+        }
+
+        seleccion.onchange = () => {
+            (seleccion.value === 'negro') ? actualizaColor('black','white') : actualizaColor('white','black');
+        }
+    </script>
+</body>
+</html>

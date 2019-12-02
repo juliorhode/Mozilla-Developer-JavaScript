@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Matematicas</title>
+    
+</head>
+<body>
+    <button>Iniciar maquina</button>
+    <p>La maquina se detuvo</p>
+    <script>
+        var btn = document.querySelector('button');
+        var txt = document.querySelector('p');
+        btn.addEventListener('click', actualizaBtn);
+        function actualizaBtn() {
+            if (btn.textContent === 'Iniciar maquina') {
+                btn.textContent = 'Detener maquina';
+                txt.textContent = 'La maquina se inicio';
+            }else{
+                btn.textContent = 'Iniciar maquina';
+                txt.textContent = 'La maquina se detuvo';
+            }
+        }
+
+
+       var myInt = 5;
+       var myFloat = 6.65;
+       console.log(myInt);
+       console.log(myFloat);
+       
+       console.log(typeof(myInt));
+       console.log(typeof(myFloat));
+
+       var num1 = 10;
+       var num2 = 50;
+       console.log(9 * num1);
+       console.log(num2 / num1);
+       console.log(num2%9);
+       console.log( (num2 + num1) / 8 + 2);
+       var num3 = 4;
+       num3++;
+       console.log(num3);
+       num3--;
+       console.log(num3);
+       num3 *= 3;
+       console.log(num3);
+       num3 += 2;
+       console.log(num3);
+       num3 -= 4;
+       console.log(num3);
+       num3 /= 5;
+       console.log(num3);
+    </script>
+</body>
+</html>

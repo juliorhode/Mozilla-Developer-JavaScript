@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Function start</title>
+    <style>
+      .msgBox {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%,-50%);
+        width: 300px;
+        /* background: rgb(57, 67, 126); */
+        border: black solid 3px;
+        border-radius: 8px;
+        box-shadow: 5px 5px 5px;
+      }
+      .msgBox p {
+        line-height: 1.5;
+        padding: 10px 20px;
+        padding-left: 42px;
+        background-position: 25px center;
+        background-repeat: no-repeat;
+        font-weight: bold;
+        text-align: center;
+        color: rgb(255, 255, 255);
+      }
+      .msgBox button {
+        background: none;
+        border: none;
+        position: absolute;
+        top: 0;
+        right: 0;
+        font-size: 1.1rem;
+        color: rgb(255, 255, 255);
+      }
+    </style>
+  </head>
+  <body>
+    <button>Display message box</button>
+
+    <script>
+        const btn = document.querySelector('button');
+        // no se coloca mensaje() porque no se quiere llamar la funcion inmediatamente, sino al hacer clic. Los parentesis en las funciones se denominan "operador de invocacion"
+        // btn.onclick = mensaje;
+
+        // como le queremos especificar parametros dentro del parentesis de la funcion que estamos llamando no la podemos llamar directamente, sino que se necesita colocarla dentro de una funcion anonima para que no este en el alcance inmediato y asi no se llame de inmediato
+        // btn.onclick = function(){
+        //     mensaje('hola como estas','chat');
+        // }
+        btn.onclick = function(){
+            mensaje('Se encontraron errores','advertencia');
+        }
+        function mensaje(msgText, msgType){
+            // seleccionamos el elemento
+            const html = document.querySelector('html');
+            // creamos el elemento contenedor
+            const panel = document.createElement('div');
+            // le asignamos un atributo  class y le inicamos cual es el definido en el style al panel
+            panel.setAttribute('class','msgBox');
+            // se agrega el node hijo (panel) al node padre (html)
+            html.appendChild(panel);
+            // creamos el elemento parrafo
+            const msg = document.createElement('p');
+
+            // agregamos el contenido del texto al elemento
+            // msg.textContent = 'Este es un cuadro de mensaje';
+            msg.textContent = msgText;
+
+            // se agrega el node hijo (msg) al node padre (panel)
+            panel.appendChild(msg);
+
+            const cerrarBtn = document.createElement('button');
+            cerrarBtn.textContent = 'x';
+            panel.appendChild(cerrarBtn);
+
+            cerrarBtn.onclick = function (){
+                // se elimina el node hijo o secundario a su node padre (panel)
+                panel.parentNode.removeChild(panel);
+            }
+
+            // todo lo anterior es lo mismo que haber realizado esto en html:
+            // <div class = "msgBox">
+            //     <p> Este es un cuadro de mensaje </p>
+            //     <button> x </button>
+            // </div> 
+
+            if (msgType === 'advertencia') {
+                
+                msg.style.backgroundImage = 'url(icons/warning.png)';
+                panel.style.backgroundColor = 'red';
+            }else if (msgType === 'chat') {
+                msg.style.backgroundImage = 'url(icons/chat.png)';
+                panel.style.backgroundColor = 'rgb(57, 67, 126)';
+            } else {
+                msg.style.paddingLeft = '20px';
+            }
+        }
+        
+    </script>
+  </body>
+</html>

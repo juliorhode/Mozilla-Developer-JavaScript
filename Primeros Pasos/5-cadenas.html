@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Cadenas</title>
+</head>
+<body>
+    <button>Presioname</button>
+    <script>
+        var txt = document.querySelector('p');
+        var uno = 'hola, ';
+        var dos = 'como estas';
+        var union = uno + dos
+        console.log(uno);
+        console.log(dos);
+        console.log(union);
+        var combinando = uno + 'yo estoy bien... ' + dos;
+        console.log(combinando);
+        console.log(uno + 242); // el navegador representa el numero como un string 
+
+        var miFecha = '19'+'67';
+        console.log(miFecha);
+        console.log( typeof(miFecha));
+        
+        var miString = '123';
+        console.log(miString);
+        console.log( typeof(miString));
+        var miNumero = Number(miString);
+        console.log(miNumero);
+        console.log( typeof(miNumero));
+        var miOtroNumero = 400;
+        console.log(miOtroNumero);
+        console.log( typeof(miOtroNumero));
+        var miOtroString = miOtroNumero.toString();
+        console.log(miOtroString);
+        console.log( typeof(miOtroString));
+        
+        var cadena = 'hola';
+        console.log(cadena + ' --> tiene ' + cadena.length + ' letras');
+        for(i = 0; i < cadena.length; i ++){
+            console.log(cadena[i]);
+            
+        }
+        console.log('la comienza en la posicion ' + cadena.indexOf('la'));
+        console.log('Vamos a extraer ho con slice: ' + cadena.slice(0,2));
+        console.log('Ahora vamos a extraer lo restante con slice: ' + cadena.slice(2));
+        console.log('En mayuscula todo: ' + cadena.toUpperCase());
+        console.log('Cambiado la por ra: ' + cadena.replace('la','ra'));
+        
+        console.log("-------------------------------------------");
+        
+        var lista = [
+            'Happy Birthday!',
+            'Merry Christmas my love',
+            'A happy Christmas to all the family',
+            'You\'re all I want for Christmas',
+            'Get well soon'
+        ];
+        for (var i = 0; i < lista.length; i++) {
+            console.log(lista[i]);
+        }
+        console.log("-------------------------------------------");
+        
+        // ahora solo vamos a mostrar lo que contenga Christmas. Cuando es -1 es porque no encontro nada, sino, es porque hay alguna coincidencia
+        for (var i = 0; i < lista.length; i++) {
+            var entrada = lista[i];
+            if(lista[i].indexOf('Christmas') !== -1){
+                var resultado = entrada;
+                console.log(resultado);
+            }
+            
+        }
+        console.log("-------------------------------------------");
+        console.log('Arreglando las mayusculas');
+        var ciudades = ['lonDon', 'ManCHESTer', 'BiRmiNGHAM', 'liVERpoOL'];
+        console.log(ciudades);
+        for (var i = 0; i < ciudades.length; i++) {
+            var entrada = ciudades[i];
+            var minusculas = entrada.toLowerCase();
+            console.log(minusculas);
+            var primeraLetra = minusculas.slice(0,1);
+            console.log(primeraLetra);
+            var capitalizar = minusculas.replace(primeraLetra, primeraLetra.toLocaleUpperCase());
+            var resultado = capitalizar;
+            console.log(resultado);
+            
+            
+            
+        }
+        
+        console.log("-------------------------------------------");
+        console.log('Creando una nueva caEncuentra el número de índice de caracter del punto y coma.dena');
+        var estaciones = [
+            'MAN675847583748sjt567654;Manchester Piccadilly',
+            'GNF576746573fhdg4737dh4;Greenfield',
+            'LIV5hg65hd737456236dch46dg4;Liverpool Lime Street',
+            'SYB4f65hf75f736463;Stalybridge',
+            'HUD5767ghtyfyr4536dh45dg45dg3;Huddersfield'
+        ];
+        console.log(estaciones);
+        for(let i = 0; i < estaciones.length; i++){
+            var entrada = estaciones[i];
+            var estacion = entrada.slice(0,3);
+            var separador = entrada.indexOf(';');
+            var nombre = entrada.slice(separador+1);
+            var resultado = estacion + ': ' + nombre;
+            console.log(resultado);
+            
+            
+        }
+        console.log("-------------------------------------------");
+
+        var button = document.querySelector('button');
+        button.onclick = function(){
+            // aqui guardamos lo que le pedimos al usuario a traves del cuadro emergente generado por prompt
+            var nombre = prompt('Cual es tu nombre?');
+            // aqui enviamos una alerta 
+            alert('Hola ' + nombre + ', me alegro verte');
+        }
+    </script>
+</body>
+</html>

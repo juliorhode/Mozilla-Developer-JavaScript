@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Matrices</title>
+</head>
+<body>
+    
+    <script>
+        console.log('Matriz de cadena' );
+        var listaCompra = [
+            'pan',
+            'leche',
+            'queso',
+            'azucar'
+        ]
+        console.log(listaCompra);
+        console.log("-------------------------------------------");
+        console.log('Matriz numerica' );
+        var numeros = [
+            1, 1, 2, 3, 5, 8, 13
+        ];
+        console.log(numeros);
+        console.log('Elementos: '+ numeros.length);
+        for (let i = 0; i < numeros.length; i++) {
+           console.log(numeros[i]);
+        }
+        console.log("-------------------------------------------");
+        console.log('Matriz combinada' );
+        var combinada = [
+            true, 
+            795, 
+            'arroz',
+            [0, 1, 2]
+        ]
+        console.log(combinada);
+        console.log("-------------------------------------------");
+        console.log('De cadena a Matriz' );
+        var datos = 'Manchester,London,Liverpool,Birmingham,Leeds,Carlisle';
+        console.log(datos);
+        var miArray = datos.split(',');
+        console.log(miArray);
+        console.log("-------------------------------------------");
+        console.log('De matriz a cadena' );
+        console.log(miArray);
+        var datosNuevos = miArray.join(',');
+        console.log(datosNuevos);
+        console.log("-------------------------------------------");
+        console.log('Agregar elemento a la matriz' );
+        var ciudades = [
+            'Manchester',
+            'London',
+            'Liverpool',
+            'Birmingham',
+            'Leeds',
+            'Carlisle'
+        ];
+        console.log(ciudades);
+        console.log('Push agrega al final de la matriz' );
+        ciudades.push('Cardiff');
+        console.log(ciudades);
+        ciudades.push('Bradford', 'Brighton');
+        console.log(ciudades);
+        console.log('Eliminamos el ultimo elemento de la matriz' );
+        ciudades.pop();
+        console.log(ciudades);
+        console.log('unshift agrega al principio de la matriz' );
+        ciudades.unshift('Edinburgh');
+        console.log(ciudades);
+        console.log('shift elimina al principio de la matriz' );
+        ciudades.shift();
+        console.log(ciudades);
+        console.log("-------------------------------------------");
+        /*EJERCICIO*/
+        console.log("Ejercicio:");
+        var total = 0;
+        var cadena = "Underpants:6.99,Socks:5.99,T-shirt:14.99,Trousers:31.99,Shoes:23.99";
+        console.log(cadena);
+        console.log("Convirtiendo a matriz");
+        var productos = cadena.split(',');
+        console.log(productos);
+        for(let i = 0; i < productos.length; i ++){
+            var subMatriz = productos[i].split(':');
+            console.log('Dividimos nombre y precio');
+            console.log(subMatriz);
+            var nombre = subMatriz[0];
+            var precio = Number(subMatriz[1]);
+            console.log(nombre);
+            console.log(precio);
+            var item = nombre + ' - $' + precio;
+            console.log(item);
+            total += precio;
+            console.log(total);
+            // toFixed hace que solo aparezcan 2 decimales
+            console.log('Total: $' + total.toFixed(2));
+            
+            
+        }
+        
+    </script>
+
+    <div class="salida">
+        <h3>Ingrese articulos</h3>
+        <input type="text" id="entrada">
+        <button>Buscar</button>
+        <ul></ul>
+    </div>
+
+    <script>
+        var lista = document.querySelector('.salida ul');
+        var buscaEntrada = document.querySelector('.salida input');
+        buscaEntrada.value='';
+        buscaEntrada.focus();
+        var buscaBtn = document.querySelector('.salida button');
+        var items;
+        console.log(lista);
+        console.log(buscaEntrada);
+        console.log(buscaBtn);
+        
+        lista.innerHTML = '';
+        var historial = [];
+        buscaBtn.onclick = function(){
+            // alert('funcionando');
+            if (buscaEntrada.value !== '') {
+                historial.unshift(buscaEntrada.value);
+                lista.innerHTML = '';
+                console.log(historial);
+                
+                for(var i = 0; i < historial.length; i ++){
+                    items = historial[i];
+                    var listaItem = document.createElement('li');
+                    listaItem.textContent = items;
+                    lista.appendChild(listaItem);
+                }
+            }
+            if(historial.length > 5){
+                historial.pop();
+            }
+            buscaEntrada.value='';
+            buscaEntrada.focus();
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Bucle while</title>
+</head>
+<body>
+    <p></p>
+    <script>
+        
+        var parrafo = document.querySelector('p');
+        var nombre=[
+            'Julio',
+            'Cesar',
+            'Alejandro',
+            'Adrianno',
+            'Rafael'
+        ];
+        
+        let i = 0;
+        while (i < nombre.length) {
+            if (i === nombre.length -1) {
+                parrafo.textContent += 'y ' + nombre[i] + '.';
+            }else{
+                parrafo.textContent += nombre[i] + ', '; 
+            }
+            i++;
+        }
+    </script>
+</body>
+</html>

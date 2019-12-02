@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+
+    <style>
+        input{
+            font-size: 2em;
+            margin: 10px 1px 0;
+        }
+    </style>
+</head>
+<body>
+    <input type="text" class="numberImput">
+    <p></p>
+
+    <script>
+        const input = document.querySelector('.numberImput');
+        const parrafo = document.querySelector('p');
+
+        function cuadrado(num){
+            return num * num;
+        }
+        function cubica(num){
+            return num * num * num;
+        }
+        function factorial(num){
+            let x = num;
+            while (x > 1) {
+                num *= x - 1;
+                x--;
+            }
+            return num;
+        }
+
+        // atento a un cambio que se efectue en el campo de texto
+        input.onchange = function(){
+            const num = input.value;
+            // isNaN es para verificar si no es un numero
+            if (isNaN(num)) {
+                parrafo.textContent = 'Necesitas ingresar un numero';
+            }else{
+                parrafo.textContent = num + ' cuadrado es: ' + cuadrado(num) + '.\n'
+                + num + ' cubica es: ' + cubica(num) + '.\n'
+                + num + ' factorial es: ' + factorial(num) + '.';
+
+            }
+        }
+    </script>
+
+</body>
+</html>

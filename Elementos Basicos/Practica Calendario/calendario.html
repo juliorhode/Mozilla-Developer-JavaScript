@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Calendario</title>
+
+    <style>
+    
+        .output * {
+            box-sizing: border-box;
+        }
+
+        .output ul {
+            padding-left: 0;
+        }
+
+        .output li {
+            display: block;
+            float: left;
+            width: 25%;
+            border: 2px solid white;
+            padding: 5px;
+            height: 40px;
+            background-color: rgb(27, 35, 105);
+            color: white;
+            font-weight: bold;
+            text-align: center;
+        }
+
+        html {
+            font-family: sans-serif;
+        }
+
+        body {
+            margin: 10px;
+            background: #e2f9ff;
+        }
+        
+    </style>
+</head>
+<body>
+    <h1></h1>
+    <div class="output" style="height: 500px; overflow:auto;">
+            <select name="" id="mes">
+               <option value="">--Seleccione--</option>
+                <option value="enero">Enero</option>
+                <option value="febrero">Febrero</option>
+                <option value="marzo">Marzo</option>
+                <option value="abril">Abril</option>
+                <option value="mayo">Mayo</option>
+                <option value="junio">Junio</option>
+                <option value="julio">Julio</option>
+                <option value="agosto">Agosto</option>
+                <option value="septiembre">Septiembre</option>
+                <option value="octubre">Octubre</option>
+                <option value="noviembre">Noviembre</option>
+                <option value="diciembre">Diciembre</option>
+            </select>
+       
+            <ul id="lista">
+       
+            </ul>
+    </div>
+
+    <script>
+        const seleccion = document.querySelector('select');
+        const lista = document.querySelector('ul');
+        const titulo = document.querySelector('h1');
+
+        seleccion.onchange = function(){
+            var dias = 0;
+            const opcion = seleccion.value;
+            console.log(opcion);
+            switch (opcion) {
+                case '':
+                return;
+                    break;
+                case 'febrero':
+                dias = 28;
+                    break;
+                case 'abril':
+                dias = 30;
+                    break;
+                case 'junio':
+                dias = 30;
+                    break;
+                case 'septiembre':
+                dias = 30;
+                    break;
+                case 'noviembre':
+                dias = 30;
+                    break;
+                default:
+                dias = 31;
+                    break;
+            }
+            console.log(dias);
+            creaCalendario(dias,opcion);
+        }
+
+        function creaCalendario(dias,opcion) {
+            lista.innerHTML = '';
+            titulo.textContent = opcion;
+            for(let i = 1; i < dias + 1; i++){
+                const listaItem = document.createElement('li');
+                listaItem.textContent = i;
+                lista.appendChild(listaItem)
+            }
+        }
+
+    </script>
+
+</body>
+</html>

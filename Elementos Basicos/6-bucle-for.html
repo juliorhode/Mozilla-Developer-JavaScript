@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+</head>
+<body>
+        <label for="busqueda">Buscar por nombre: </label>
+        <input type="text" name="" id="busqueda">
+        <button>Buscar</button>
+
+        <p></p>
+
+        <script>
+            const contactos = [
+                'Julio: 643216',
+                'Cesar: 684531',
+                'Adrianno: 6543656',
+                'Alejandro: 4355758',
+                'Rafael: 684168'
+            ];
+            
+            const entrada = document.querySelector('input');
+            const boton = document.querySelector('button');
+            const parrafo = document.querySelector('p');
+
+            boton.onclick = function(){
+                let buscaNombre = entrada.value.toLowerCase();
+                // console.log(buscaNombre);
+                entrada.value = '';
+                entrada.focus();
+                for(let i = 0; i < contactos.length; i++){
+                    let separaContactos = contactos[i].split(':');
+                    if (separaContactos[0].toLowerCase() === buscaNombre) {
+                        parrafo.textContent = separaContactos[0] + ' el numero es: ' + separaContactos[1] + '.';
+                        break;
+                    }else{
+                        parrafo.textContent = 'Contacto no se encuentra.';
+                    }
+                }
+                
+            }
+
+
+        </script>
+</body>
+</html>

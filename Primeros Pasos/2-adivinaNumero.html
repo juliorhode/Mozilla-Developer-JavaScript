@@ -1,0 +1,159 @@
+<!-- 
+    Quiero que crees un juego sencillo del tipo "adivina el número". Se debe elegir un número aleatorio entre 1 y 100, luego desafiar al jugador a adivinar el número en 10 intentos. Después de cada intento debería decirle al jugador si ha acertado o no - y si está equivocado, debería decirle si se ha quedado corto, o se ha pasado. También debería decir los números que ya se han probado anteriormente. El juego acabará una vez que el jugador acierte o cuando se acaben los intentos. Cuando el juego se acabe,  se le debe dar al jugador la opción de volver a jugar.
+
+    1- Generar un número aleatorio entre 1 y 100.
+    2- Registrar el número del intento en el que el jugador se encuentre. Empezando en 1.
+    3- Darle al jugador una forma de adivinar cuál es el número.
+    4- Una vez que se ha introducido un número, registrarlo en alguna parte para que el jugador pueda ver sus intentos previos.
+    5- Siguente, comprobar si el número es correcto.
+    6- Si es correcto:
+        1- Mostrar un mesaje de felicitaciones.
+        2- Hacer que el jugador no pueda introducir más intentos (esto arruinaría el juego).
+        3- Mostrar un control que le permita al jugador reiniciar el juego.
+    7- Si es incorrecto y al jugador todavía le quedan intentos:
+        1- Decirle al jugador que ha fallado.
+        2- Dejar al jugador intentarlo de nuevo.
+        3- Incrementar el número de intentos en 1.
+    8- Si el jugador falla y no le quedan turnos:
+        1- Decirle al jugador que el juego se ha acabado.
+        2- Hacer que el jugador no pueda introducir más intentos (esto arruinaría el juego).
+        3- Mostrar un control que permita al jugador volver a empezar el juego.
+    9- Una vez que el juego se reinicia,  asegurarse de que la lógica del juego y la IU estén completamente restablecidos, volver al paso 1.
+-->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Adivina el Numero</title>
+    <style>
+        html {
+            font-family: sans-serif;
+        }
+        body {
+            width: 50%;
+            max-width: 800px;
+            min-width: 480px;
+            margin: 0 auto;
+        }
+        .lastResult {
+            color: white;
+            padding: 3px;
+        }
+    </style>
+</head>
+<body>
+        <h1>Juego Adivina el número</h1>
+        <p>Seleccionamos un número aleatorio entre el 1 y 100. Fijate si puedes adivinarlo en 10 intentos o menos. Vamos a decirte si tu numero es más alto o más bajo.</p>
+    <div class="resultParas">
+        <p class="guesses"></p>
+        <p class="lastResult"></p>
+        <p class="lowOrHi"></p>
+        <label for="guessField">Adivina el número: </label><input type="text" id="guessField" class="guessField">
+        <input type="submit" value="Enviar intento" class="guessSubmit">
+    </div>
+    <script>
+        // numero aleatorio del 1 al 100
+        let randomNumber = Math.floor(Math.random() * 100) + 1;
+        
+        // almacenamos una referencia a los parrafos de resultados en el html por medio de su clase css
+        const guesses = document.querySelector('.guesses');
+        const lastResult = document.querySelector('.lastResult');
+        const lowOrHi = document.querySelector('.lowOrHi');
+
+        const guessSubmit = document.querySelector('.guessSubmit');
+        const guessField = document.querySelector('.guessField');
+
+        let guessCount = 1;
+        let resetButton;
+        guessField.focus();
+        function checkGuess() {
+            // alert('Soy un marcador de posición');
+            
+            // obtenemos el valor introducido por el usuario y pasamos el valor a numerico
+            let userGuess = Number(guessField.value);
+            
+            // si acierta al primer intento
+            if (guessCount === 1){
+                guesses.textContent = 'Intentos anteriores: ';
+            }
+            // para ir colocando los numeros que va ingresando el usuario en sus intentos
+            guesses.textContent += userGuess + ' ';
+
+            // aqui comprueba si la respuesta  es igual al numero aleatorio
+            if (userGuess === randomNumber) {
+                // escribimos el mensaje al usuario
+                lastResult.textContent = 'Felicidades, lo adivinaste!!!';
+                // le colocamos un fondo verde al mensaje
+                lastResult.style.backgroundColor = 'green';
+                // limpiamos el contenido del cuadro  donde mostramos si el valor es alto o bajo
+                lowOrHi.textContent = '';
+                // ejecutamos la funcion para termianr el juego
+                setGameOver();
+                // si sus intentos se agotaron
+            }else if (guessCount === 10) {
+                lastResult.textContent = 'Fin del juego!!!';
+                setGameOver();
+            }else{
+                // si el usuario se equivoco
+                lastResult.textContent = 'Eqivocado!!!';
+                lastResult.style.backgroundColor = 'red';
+                // si el numero es menor al aleatorio
+                if (userGuess < randomNumber) {
+                    lowOrHi.textContent = 'El numero es muy bajo!!!';
+                // si el numero es mayor al aleatorio
+                }else if (userGuess > randomNumber) {
+                    lowOrHi.textContent = 'El numero es muy alto!!!';
+                }
+            }
+            // añadimos 1 al contador
+            guessCount++;
+            // vaciamos el valor del campo de texto
+            guessField.value = '';
+            // colocamos el foco en el campo
+            guessField.focus();
+        }
+
+        function setGameOver() {
+            // deshabilito la entrada de datos al campo
+            guessField.disabled = true;
+            // deshabilito el boton 
+            guessSubmit.disabled = true;
+            // genero un objeto de tipo boton
+            resetButton = document.createElement('button');
+            // le coloco el texto al boton
+            resetButton.textContent = 'Iniciar Juego';
+            // se añade el boton
+            document.body.appendChild(resetButton);
+            // colocamos a la escucha el boton al evento click para que invoque la funcion resetGame
+            resetButton.addEventListener('click',resetGame);
+        }
+
+        function resetGame(){
+            // reestablecemos el contador en 1
+            guessCount = 1;
+            // dentro del div que contiene la clase resultParas, almacenaremos todos los elemetos parrafo que se encuentra dentro de el
+            const resetParas = document.querySelectorAll('.resultParas p');
+            // se resetea todos los valores contenidos en los parrafos
+            for(let i = 0; i < resetParas.length; i++){
+                resetParas[i].textContent = '';
+            }
+            // quitamos el boton de resetear
+            resetButton.parentNode.removeChild(resetButton);
+
+            // habilitamos los elementos
+            guessField.disabled = false;
+            guessSubmit.disabled = false;
+            // reseteo el campo
+            guessField.value = '';
+            // le coloco el foco
+            guessField.focus();
+            // coloco el color de fondo en blanco
+            lastResult.style.backgroundColor = 'white';
+            // generamos un nuevo numero aleatorio
+            randomNumber = Math.floor(Math.random()+100)+1;
+        }
+        // agregamos al boton el evento que va a estar a la escucha, que es el evento click para que ejecute la funcion checkGuess
+        guessSubmit.addEventListener('click',checkGuess);
+    </script>
+</body>
+</html>

@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>Function scope example</title>
+</head>
+<body>
+
+  <script>
+    // variable de ambito global
+    let x = 1;
+    function a() {
+        // variable de ambito local
+        let y = 2;
+        // desde la funcion output puede acceder a esta variable de ambito local porque se pasa por parametro
+         output(y);
+
+        // esta variable no se puede acceder, ya que pertenece a la funcion b y desde la funcion a no tiene acceso a ella
+        // output(z);
+    }
+    function b() {
+        // variable de ambito local
+        let z = 3;
+
+        // ReferenceError: z is not defined
+        // subFuncion1();
+       
+        // Para solucionar esto, se debe hacer de la siguiente forma:
+        subFuncion1(z);
+    }
+    // se le debe pasar el valor a la funcion y ejecutar la funcion b
+    function subFuncion1(valor){
+        console.log(valor);
+    }
+
+    // function subFuncion1(){
+        // a pesar que la funcion esta dentro del alcance donde se encuentra la variable, arrojaria un error ya que la variable le pertenece a b y no esta definida dentro de subFuncion1
+        // console.log(z);
+        
+    // }
+
+    function output(value) {
+        const para = document.createElement('p');
+        document.body.appendChild(para);
+        para.textContent = 'Value: ' + value;
+    }
+  </script>
+</body>
+</html>

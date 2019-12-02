@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+</head>
+<body>
+    <button>Pulsame</button>
+    <script>
+        // Funciones
+        function miFuncion(){
+            alert('Hola');
+        }
+        // se llama una sola vez la funcion
+        miFuncion();
+
+        // Funcion anonima
+        //Por lo general se usan junto a controlador de eventos
+        const boton = document.querySelector('button');
+        boton.onclick = function(){
+            alert('Hola desde funcion anonima');
+        }
+
+        // Tambien se puede asignar una funcion anonima para que sea el valor de una variable. Con esto seria como hacer una funcion con su nombre pero por convencion, no es recomendable
+        const llamado = function(){
+            alert('Hola desde otra funcion anonima');
+        }
+        llamado();
+    </script>
+
+</body>
+</html>

@@ -1,0 +1,28 @@
+Script de bloqueo
+-----------------
+Hay dos maneras de evitar el script de bloqueo con 
+async y defer.
+
+async 
+-----
+Los scripts descargaran sin bloquear la renderizacion de la pagina y lo ejecutara tan pronto el script termine de descargarse. Este no garantiza que los scripts se ejecutaran en orden especifico, solo que no impedira que se muestre el resto de la pagina. Se usa para cuando los scripts de la pagina se ejecutan independientemente uno del otro y no denpendan de ningun otro.
+
+Esto es para los scripts que no necesitan esperar para el analisis y pueden ejecutarse independientemente sin dependencias
+
+defer
+-----
+Este ejecutara los scripts en el orden que aparecen en la pagina y los ejecutara tan pronto como el script y el contenido sean descargados. 
+
+Esto es para los scripts que si se necesita esperar a ser analizados y dependen de otro, colocandolo siempre en el orden que se desea.
+
+
+
+Lista de errores
+https://developer.mozilla.org/es/docs/Web/JavaScript/Reference/Errors
+
+
+continuar aqui: https://developer.mozilla.org/en-US/docs/Learn/JavaScript/Building_blocks/Return_values
+
+iconos:
+https://www.iconfinder.com/
+https://www.iconfinder.com/nazarr
