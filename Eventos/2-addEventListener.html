@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+</head>
+<body>
+    <button>Cambia Color</button>
+
+    <script>
+        const btn = document.querySelector('button');
+
+
+        function random(num) {
+            return Math.floor(Math.random() * (num + 1));
+        }
+        function cambia() {
+            // rgb(255,255,255)
+            var randomColor =
+            "rgb(" + random(255) + "," + random(255) + "," + random(255) + ")";
+            // se le establece ese color de fondo generado aleatoriamente
+            document.body.style.backgroundColor = randomColor;
+        }
+
+        btn.addEventListener('click',cambia);
+        // con esto eliminamos el evento... esto se ve mejor en programas grandes para poder eliminar eventos antiguos.
+        btn.removeEventListener('click',cambia);
+
+        // tambien puede ser con una funcion anonima
+        btn.addEventListener('click',function(){
+            var randomColor =
+            "rgb(" + random(255) + "," + random(255) + "," + random(255) + ")";
+            document.body.style.backgroundColor = randomColor;
+        });
+
+        // tambien puede colocarse multiples controladores para el mismo oyente
+        function alertaA(){
+            alert('Hola');
+        }
+        function alertaB(){
+            alert('Chao');
+        }
+        // De esta forma no se puede realizar ya que el evento se sobreescrie con la segunda linea
+        // CONTROLADOS DE EVENTOS
+        // Los controladores de eventos tienen menos opciones y potencia, pero una mejor compatibilidad entre navegadores
+        // btn.onclick = alertaA;
+        // btn.onclick =  alertaB;
+
+        // De esta manera si se puede colocar multiples controladores para el mismo oyente
+        // EVENTOS DOM NIVEL 2
+        // Estos son mas potentes pero pueden volverse mas complejos y tienen menos soporte (Soportado desde IE9)
+        btn.addEventListener("mouseover",alertaA);
+        btn.addEventListener('mouseout', alertaB);
+
+    </script>
+</body>
+</html>

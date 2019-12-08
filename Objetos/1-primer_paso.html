@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Objetos en JavaScript</title>
+  </head>
+
+  <body>
+    <p>Este ejemplo requiere que se ingrese comandos en la consola de JavaScript.</p>
+
+  </body>
+
+    <script>
+        // los objetos se componen  por clave:valor. Por lo general es utilizado para enviar una serie de datos al servidor para colocarlo en una base de datos. Esta forma es mucho mas eficiente que enviar varios elementos individualmente
+
+        // los elementos se acceden por medio del nombre del objeto, seguido de un punto y luego la propiedad. 
+        // Ejemplo: persona.nombre
+        // persona.nombres.pila
+        // Tambien se puede acceder a las propiedades de un objeto usando la notacion de corchetes (arreglos asociativos): 
+        // persona['edad']
+        // persona['nombres']['pila']
+        var persona = {
+            // esto se denomina propiedad
+            nombre : ['Julio' , 'Ferrer'],
+            nombres : {
+                pila : 'Julio',
+                apellido : 'Ferrer'
+            },
+            // esto se denomina propiedad
+            edad : 40,
+            // esto se denomina propiedad
+            genero : 'Masculino',
+            // esto se denomina propiedad
+            intereses : ['musica','cocina'],
+            // esto se denomina metodo
+            bio : function(){
+                alert( 
+                    // La palabra this, se refiere al objeto actual, por lo cual es equivalente a persona. Con esto se asegura que se usan los valores correctos. Esto no es muy util cuando se escribe objetos literales  mano, sino cuando son objetos dinamicos.
+                    this.nombre[0] + '' + this.nombre[1] + ' tiene ' + this.edad + ' años de edad.' + ' Le gusta ' + this.intereses[0] + ' y ' + this.intereses[1] + '.'
+                );
+            },
+            // esto se denomina metodo
+            saludo : function(){
+                alert(
+                    'Hola, soy ' + this.nombre[0] + '.'
+                );
+            }
+        };
+        // Agregamos una propiedad al objeto
+        var nombrePersonalizado = 'altura';
+        var valorPersonalizado = '1.84m';
+        persona[nombrePersonalizado]=valorPersonalizado;
+    </script>
+</html>

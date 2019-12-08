@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8" />
+    <title>Useful event target example</title>
+    <style>
+        div {
+            background-color: red;
+            height: 100px;
+            width: 25%;
+            float: left;
+
+        }
+    </style>
+</head>
+
+<body>
+    <script>
+        // creamos 16 elementos div
+        for (let i = 1; i <= 16; i++) {
+            const myDiv = document.createElement("div");
+            document.body.appendChild(myDiv);
+        }
+        //   armamos un array de div
+        const divs = document.querySelectorAll("div");
+        // recorremos cada uno de los elementos div, agregandoles un controlador onclick a cada uno
+        for (let i = 0; i < divs.length; i++) {
+            divs[i].onclick = function (e) {
+                // Puede ser: event, evt, e... esto se denomina objeto de evento
+                console.log(e);
+                e.target.style.backgroundColor = bgChange();
+            };
+        }
+
+        function random(number) {
+            return Math.floor(Math.random() * number);
+        }
+        function bgChange() {
+            const rndCol =
+                "rgb(" + random(255) + "," + random(255) + "," + random(255) + ")";
+            return rndCol;
+        }
+    </script>
+</body>
+
+</html>

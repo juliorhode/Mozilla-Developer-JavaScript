@@ -15,13 +15,15 @@ Este ejecutara los scripts en el orden que aparecen en la pagina y los ejecutara
 
 Esto es para los scripts que si se necesita esperar a ser analizados y dependen de otro, colocandolo siempre en el orden que se desea.
 
+Delegacion de eventos
+https://davidwalsh.name/event-delegate
 
 
 Lista de errores
 https://developer.mozilla.org/es/docs/Web/JavaScript/Reference/Errors
 
 
-continuar aqui: https://developer.mozilla.org/en-US/docs/Learn/JavaScript/Building_blocks/Return_values
+continuar aqui: https://developer.mozilla.org/es/docs/Learn/JavaScript/Objects/Object-oriented_JS
 
 iconos:
 https://www.iconfinder.com/

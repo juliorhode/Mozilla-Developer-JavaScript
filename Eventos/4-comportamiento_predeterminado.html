@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+</head>
+<body>
+    <form>
+        <div>
+            <label for="nombre">Nombre:</label>
+            <input type="text" id="nombre">
+        </div>
+        <div>
+            <label for="apellido">Apellido:</label>
+            <input type="text" id="apellido">
+        </div>
+        <div>
+            <input type="submit" id="submit">
+        </div>
+    </form>s
+    <p></p>
+    a
+    <script>
+        // Esto sucede en los formularios de registro. La accion predeterminada es enviar los datos a un servidor y que el navegador se redirija a una pagina.
+
+        const form = document.querySelector('form');
+        const nombre = document.getElementById('nombre');
+        const apellido = document.getElementById('apellido');
+        const parrafo = document.querySelector('p');
+
+        form.onsubmit = function(e){
+            if (nombre.value === '' || apellido.value === '') {
+                // esto detiene el envio del formulario
+                e.preventDefault();
+                parrafo.textContent = 'Debe completar ambos campos (nombre y apellido).';
+            }
+        }
+    </script>
+</body>
+</html>

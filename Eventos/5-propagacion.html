@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Show video box example</title>
+    <style>
+      div {
+        position: absolute;
+        top: 50%;
+        transform: translate(-50%,-50%);
+        width: 200px;
+        height: 100px;
+        border-radius: 10px;
+        background-color: rgb(233, 253, 48);
+        background-image: linear-gradient(to bottom, rgba(0,0,0,0), rgba(0,0,0,0.1));
+      }
+      .hidden {
+        left: -60%;
+      }
+      .showing {
+        left: 60%;
+      }
+      div p {
+        display: block;
+        width: 100px;
+        margin: 50px auto;
+        background: black;
+        color: white;
+      }
+    </style>
+  </head>
+  <body>
+    <button>Mostrar</button>
+
+    <div class="hidden">
+      <p>Hola como estas</p>
+    </div>
+
+    <script>
+      const btn = document.querySelector('button');
+      const div = document.querySelector('div');
+      const parrafo = document.querySelector('p');
+      btn.onclick = function() {
+        div.setAttribute('class','showing');
+      }
+      div.onclick = function() {
+        div.setAttribute('class','hidden');
+      };
+      parrafo.onclick = function(e) {
+        // esto hace que cuando se invoca en el objeto de evento de un controlador, se ejecute el primer controlador, pero el evento no burbujea mas arriba de la cadena
+        e.stopPropagation();
+        parrafo.style.color = 'red';
+      };
+
+    //   Cuando se dispara un evento en un elemento que tiene elementos primarios, los navegadores modernos ejecutan dos fases: fase de captura y fase de burbujeo.
+
+    // fase captura: El navegador verifica si el ancestro mas ecterno del elemento tiene un controlador de evento registrado, y lo ejecuta si lo tiene. Luego pasa al siguiente elemento y hace lo mismo, y asi sucesivamente hasta que llega al elemento que disparo el evento
+
+    // fase de burbujeo: El navegador verifica si el elemento que disparo el evento tiene un controlador de evento registrado en la fase de propagacion y lo ejecuta. Luego pasa al siguiente elemento ancestro inmediato y hace lo mismo, y asi sucesivamente hasta que alcanza el elemento html
+    </script>
+  </body>
+</html>

@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Document</title>
+  </head>
+  <body>
+    <button>Cambia Color</button>
+
+    <script>
+      // obtenemos el boton
+      var btn = document.querySelector("button");
+
+      function random(num) {
+        return Math.floor(Math.random() * (num + 1));
+      }
+      // colocamos a la escucha del evento click al boton y le pasamos una funcion anonima
+      /*
+      btn.onclick = function() {
+        // rgb(255,255,255)
+        var randomColor =
+          "rgb(" + random(255) + "," + random(255) + "," + random(255) + ")";
+        // se le establece ese color de fondo generado aleatoriamente
+        document.body.style.backgroundColor = randomColor;
+      }*/
+
+    //   tambien puede ser de esta forma
+      // btn.onclick = cambia; // cuando se hace click
+      // btn.onfocus = cambia; // cuando el objeto toma el foco
+      // btn.onblur = cambia; // cuando el objeto pierde el foco
+      /*
+      onkeypress = cse refiere a una pulsacion general (boton abajo y luego hacia arriba)
+      onkeydown y onkeyup = se refieren solo a las partes de la pulsacion de tecla y pulsacion de tecla respectivamente (Esto se hace en el objeto ventana. No funciona en el boton).
+
+      */
+      // btn.onmouseover = cambia; // al estar encima del boton
+      // btn.onmouseout = cambia; // al estar fuera del boton
+
+      // NOTA: los controladores de eventos en linea, no se debe usar ya que se considera una mala practica ya que se vuelven inmanejables e ineficientes
+
+      // si se tienen varios botones se puede utilizar un bucle for o un forEach
+      /*
+        Ejemplo:
+        Con bucle for()
+        --------------------------------------------
+        botones const = document.querySelectorAll ('botón');
+
+        for (let i = 0; i <buttons.length; i ++) {
+          botones [i] .onclick = bgChange;
+        } 
+        Con bucle forEach()
+        ---------------------------------------------
+        const botones = document.querySelectorAll ('button');
+
+        botones.forEach(function(boton){
+          boton.onclick = cambia;
+        });
+      */
+        const botones = document.querySelectorAll ('button');
+
+        botones.forEach(function(boton){
+          boton.onclick = cambia;
+        });
+       
+      function cambia() {
+        // rgb(255,255,255)
+        var randomColor =
+          "rgb(" + random(255) + "," + random(255) + "," + random(255) + ")";
+        // se le establece ese color de fondo generado aleatoriamente
+        document.body.style.backgroundColor = randomColor;
+      }
+    </script>
+  </body>
+</html>
