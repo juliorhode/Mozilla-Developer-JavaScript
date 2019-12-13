@@ -23,7 +23,7 @@ Lista de errores
 https://developer.mozilla.org/es/docs/Web/JavaScript/Reference/Errors
 
 
-continuar aqui: https://developer.mozilla.org/es/docs/Learn/JavaScript/Objects/Object-oriented_JS
+continuar aqui: https://developer.mozilla.org/en-US/docs/Learn/JavaScript/Objects/Inheritance
 
 iconos:
 https://www.iconfinder.com/

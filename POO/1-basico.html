@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+</head>
+<body>
+
+    <script>
+        /*
+            Abstraccion: Crear un modelo simple de algo complejo, que represente los aspectos mas importante y que sea facil de manipular para los propositos del programa.
+
+            Class: Es un modelo que define las caracteristicas que un objeto deberia de tener. 
+
+            Instanciacion: Es el proceso de crear una instancia de objeto desde la clase. Cuando una instancia de objeto es creada a partir de una clase, se ejecuta la funcion constructora (constructor) de la clase para crearla.
+
+
+        */
+
+        // Funcion normal
+        /*
+        function creaPersona(nombre){
+            var obj = {};
+            obj.nombre= nombre;
+            obj.saludo = function(){
+                alert('Hola, Yo soy ' + this.nombre + '.');
+            }
+            return obj;
+        }
+
+        var persona1 = creaPersona('Julio');
+        persona1.nombre;
+        persona1.saludo();
+        */
+        /*
+        function Persona(nombre){
+            this.nombre = nombre;
+            this.saludo = function(){
+                alert('Hola, Yo soy ' + this.nombre + '.');
+            }
+        }
+
+        // Instancia de objeto
+        var persona1 = new Persona('Julio');
+        var persona2 = new Persona('Cesar');
+        */
+
+        // Funcion cosntructora final
+        function Persona(nombre, apellido, edad, genero, intereses){
+            
+            this.nombres = {
+                'nombre'    : nombre,
+                'apellido'  : apellido
+            };
+            this.edad       = edad;
+            this.genero     = genero;
+            this.intereses  = intereses;
+
+            var str = this.nombres.nombre + ' ' + this.nombres.apellido + ', tiene ' + this.edad + ' años. ';
+
+
+            var strGeneroM = 'A el le gusta ';
+            var strGeneroF = 'A ella le gusta ';
+            if (this.genero === 'Masculino') {
+                str+=strGeneroM;
+            }else if (this.genero === 'Femenino') {
+                str+=strGeneroF;
+            }
+            
+                for(let i = 0; i < this.intereses.length ; i++){
+                    if (i === this.intereses.length -1) {
+                        str += this.intereses[i] + '.';
+                    }else{
+                        str+= this.intereses[i] + ',';
+                    }
+                };
+            console.log(str);
+            alert(str);
+
+            /*
+            this.bio = function(){
+                alert(this.nombres.nombre + ' ' + this.nombres.apellido + ', tiene ' + this.edad + ' años. Le gusta: ' + this.intereses[0] + ' y ' + this.intereses[1] + '.');
+
+            };
+            */
+
+            this.saludo = function(){
+                alert('Hola, Yo soy ' + this.nombres.nombre + '.');
+            };
+        }
+
+        var persona1 = new Persona('Julio','Ferrer',40,'Masculino',['nusica','comida']);
+        // Accedemos por consola asi: 
+        // persona1["edad"]
+        // 40
+        // persona1["genero"]
+        // "Masculino"
+
+        // Tambien se puede de la siguiente forma:
+        // persona1.edad
+        // 40
+        // persona1.intereses
+        // Array [ "nusica", "comida" ]
+        // persona1.bio()
+
+    </script>
+
+</body>
+</html>

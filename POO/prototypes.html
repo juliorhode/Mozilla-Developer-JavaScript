@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Document</title>
+  </head>
+  <body>
+    <script>
+              // Los prototipos son mecanismos mediante el cual los objetos heredan caracteristicas entre si. Un objeto prototipo puede tener a su vez, otro objeto prototipo asociado desde el que heredar metodos y propiedades disponibles que no han sido declarados por ellos.
+
+              // Los metodos y propiedades son definidas en la propiedad prototype, que reside en la funcion constructor del objeto, no en la instancia del objeto.
+
+              // En Javascript, se establece un enlace entre la instancia del objeto y su prototipo (se encuentra en la propiedad __proto__ de la instancia, que es inicializada por la propiedad prototipe del constructor). Por tanto, el objeto tendra acceso a una serie de metodos y propiedades que se encuentran a lo largo de la cadena prototipos asociada.
+
+              // El prototipo de la instancia de un objeto (se accede mediante Object.getPrototypeOf(obj) o a traves de la propiedad __proto__) como el prototipo que contiene el constructor (se encuentra en la propiedad prototype del constructor) hacen referencia al mismo objeto.
+
+
+              function Persona(nombre, apellido, edad){
+
+                  this.nombres = {
+                      'nombre'    : nombre,
+                      'apellido'  : apellido
+                  };
+                  this.edad       = edad;
+
+                  var str = this.nombres.nombre + ' ' + this.nombres.apellido + ', tiene ' + this.edad + ' años. ';
+
+                  //alert(str);
+                  console.log(str);
+                  
+
+                  this.saludo = function(){
+                      alert('Hola, Yo soy ' + this.nombres.nombre + '.');
+                  };
+              }
+
+              var persona1 = new Persona('Julio','Ferrer',40);
+
+              // persona1.valueOf() --> va a devolver el valor del objeto que se llama.
+              // Object { nombres: {…}, edad: 40, saludo: saludo() }
+              // 1) El navegador inicialmente verifica si el objeto persona1 tiene un metodo valueOf() disponible, como se define en  su constructor Persona().
+              // 2) si no lo tiene, pues verifica el de Object() que si tiene el metodo valueOf() disponible.
+
+              // Nota: los metodos y propiedades no se copian de un objeto a otro en la cadena del prototipo, se accede como se describió anteriormente.
+
+              // No existe una forma de acceder directamente al objeto prototype de un objeto. Los enlaces entere los elementos de la cadena se definen en una propiedad interna [[prototype]] (ECMAScript). Sim embargo, la mayoria de los navegadores modernos tienen una propiedad disponible llamada __proto__ (2 guiones bajo de cada lado) que contien el objeto prototipo del constructor del objeto. Ejemplo: persona1.__proto__ y tambien persona1.__proto__.__proto__ para ver la cadena en el codigo.
+            /*
+                persona1.__proto__
+                    {…}
+                    constructor: Persona()
+                    arguments: null
+                    caller: null
+                    length: 3
+                    name: "Persona"
+                    prototype: Object { … }
+                    <prototype>: function ()
+                    <prototype>: Object { … }
+             
+                persona1.__proto__.__proto__
+                    {…}
+                    __defineGetter__: function __defineGetter__()
+                    __defineSetter__: function __defineSetter__()
+                    __lookupGetter__: function __lookupGetter__()
+                    __lookupSetter__: function __lookupSetter__()
+                    __proto__: null
+                    constructor: function Object()
+                    hasOwnProperty: function hasOwnProperty()
+                    isPrototypeOf: function isPrototypeOf()
+                    propertyIsEnumerable: function propertyIsEnumerable()
+                    toLocaleString: function toLocaleString()
+                    toSource: function toSource()
+                    toString: function toString()
+                    valueOf: function valueOf()
+                    <get __proto__()>: function __proto__()
+                    <set __proto__()>: function __proto__()
+​
+            */
+
+              // Desde ECMAScript 2015 se puede acceder al objeto prototype de un objeto indirectamente a traves de getPrototypeOf(obj)
+
+              /*
+               Definicion de los metodos y propiedades heredados:
+                
+               Como se puede observar en la pagina de referencia https://developer.mozilla.org/es/docs/Web/JavaScript/Referencia/Objetos_globales/Object algunos metodos y propiedades son heredados y otros no. Los heredados son los definidos en la propiedad prototype, es decir, los que comienzan con Object.prototype. mas no los que comienzan por Object
+
+               El valor de la propiedad prototype es un objeto, que es basicamente un deposito para almacenar propiedades y metodos que queremos que sean heredados por lo sobjetos mas abajo en la cadena del prototipo.
+
+               Object.prototype.toString(), Object.prototype.valueOf(), etc, estan disponibles para cualquier objeto que herede de Object.prototype, incluidas las nuevas instancias de objetos creadas a partir del constructor Persona(). 
+
+               Object.is() , Object.keys() y otros miembros no definidos dentro del grupo de prototype, no son heredados por instancias de objetos o tipos de objetos que heredan de Object.prototype. Son metodos y propiedades propies del constructor Object(). 
+               
+
+              */
+
+              // Se crea un nuevo objeto a partir de un objeto prototipo especificado. persona2 se esta creando usando a persona1 como objeto prototipo. 
+              let persona2 = Object.create(persona1);
+              console.log(persona2.__proto__); 
+              /* RESULTADO
+              {…}
+                edad: 40
+                nombres: Object { nombre: "Julio", apellido: "Ferrer" }
+                saludo: function saludo()​
+                <prototype>: {…}
+                constructor: function Persona()​​
+                <prototype>: {…}
+                __defineGetter__: function __defineGetter__()
+                __defineSetter__: function __defineSetter__()
+                __lookupGetter__: function __lookupGetter__()
+                __lookupSetter__: function __lookupSetter__()
+                __proto__: 
+                constructor: function Object()
+                hasOwnProperty: function hasOwnProperty()
+                isPrototypeOf: function isPrototypeOf()
+                propertyIsEnumerable: function propertyIsEnumerable()
+                toLocaleString: function toLocaleString()
+                toSource: function toSource()
+                toString: function toString()
+                valueOf: function valueOf()
+                <get __proto__()>: function __proto__()
+                <set __proto__()>: function __proto__()
+                */
+
+
+                // Esto funciona bien cuando se tiene que crear una instancia de objeto y no se tiene una referencia al constructor original
+                let persona3 = new persona1.constructor('Cesar', 'Alejandro', 14,['Videos','Juegos']);
+                console.log(persona3.nombres.nombre);
+                console.log(persona3.nombres.apellido);
+                //console.log(persona3.saludo());
+
+                // Si se tiene una instancia de objeto y se desea devolver el nombre del constructor del que es una instancia
+                console.log('El constructor es: ' + persona1.constructor.name);
+                
+                // Modificacion de prototipos
+                Persona.prototype.despedida = function(){
+                    console.log(this.nombres.nombre + ' ha abandonado el edificio. Adios por ahora!!!');
+                }
+                // Ejecutar persona1.despedida() por consola
+                // persona1.despedida()
+                // Julio ha abandonado el edificio. Adios por ahora!!!
+                // persona3.despedida()
+                // Cesar ha abandonado el edificio. Adios por ahora!!!
+
+                // El resultado es el nombre de la persona con el que se definio en el constructor. Esto ha actualizado toda la cadena dinamicamente, haciendo que este nuevo metodo este disponible automaticamente en todas las instancias de objeto derivadas del constructor. 
+
+                // Es raro ver propiedades definidas en la propiedad prototype, ya que no son muiy flexibles cuando se definen de esta manera.
+
+                // Person.prototype.nombreFull = 'Julio Ferrer'; Esto no funciona bien, dado que si otra persona no se llama asi, vamos a mostrar cosas que no son correctas. Si hacemos que: Person.prototype.nombreFull = this.nombres.nombre + '' this.nombres.apellido, yampoco va a funcionar, debido al alcance que no es global sino que esta dentro de una funcion y devolveria undefined. 
+    </script>
+  </body>
+</html>

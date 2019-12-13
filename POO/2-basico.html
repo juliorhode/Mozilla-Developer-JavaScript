@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+</head>
+<body>
+
+    <script>
+
+        // Usando el constructor Object()
+        var persona1 = new Object();
+        persona1.name = 'Julio';
+        persona1['edad'] = 40;
+        persona1.saludo = function(){
+            alert('Hola, Soy ' + this.name + '.');
+        };
+
+        // Tambien se puede realizar de esta forma:
+        var persona2 = new Object({
+            nombre : 'Cesar',
+            edad : 14,
+            saludo : function(){
+                alert('Hola, Soy ' + this.name + '.');
+            }
+        });
+
+        // Metodo create()... Este metodo permite crear un nuevo objeto basado en cualquier otro objeto existente
+
+        var persona3 = Object.create(persona1);
+        // Este objeto fue creado basado en persona1, el cual tiene las mismas propiedades y metodos. La limitante del metodo create(), es que no es soportado por IE8.
+
+    </script>
+
+</body>
+</html>
