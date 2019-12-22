@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Document</title>
+  </head>
+
+  <body>
+    <div>
+      <label for="jscode">Ingrese codigo:</label>
+      <input type="text" id="jscode" />
+      <button>Enviar codigo</button>
+    </div>
+    <p></p>
+    <script>
+	  const input = document.querySelector("input");
+	  const btn = document.querySelector('button');
+	  const parrafo = document.querySelector('p');
+
+	  btn.onclick = function(){
+		//   alert('funcionando');
+		const codigo = input.value;
+		// eval() evalua un codigo javascript representado como una cadena de caracteres. Si este contiene una expresion, sentencia o secuencia de sentencias, la evalua y muestra el resultado.
+		parrafo.textContent = eval(codigo);
+	  }
+
+	//   solo definimos las propiedades dentro del constructor
+      function Persona(nombre, apellido, edad) {
+        this.nombres = {
+          nombre,
+          apellido
+        };
+        this.edad = edad;
+	  };
+	  
+	  //   Metodos definidos en el prototipo
+	  Persona.prototype.bio = function(){
+		  let cadena = this.nombres.nombre + ' ' + this.nombres.apellido + ' tiene ' + this.edad + ' de edad.';
+		  
+		  alert(cadena);
+	  };
+	  //   Metodos definidos en el prototipo
+	  Persona.prototype.saludo = function(){
+		  alert('Hola... Yo soy ' + this.nombres.nombre + '.');
+		};
+		//   Metodos definidos en el prototipo
+		Persona.prototype.despedida = function(){
+			alert(this.nombres.nombre + ' se despide, nos vemos luego.');
+	  };
+	  
+	  let persona1 = new Persona('Julio','Ferrer',40);
+	  
+	  
+	  
+	  /*HERENCIA CON PARAMETROS*/
+	  
+	  //   vamos a crear una clase prfesor que va a heredar de persona
+	  function Profesor(nombre, apellido, edad, tema){
+		  // funcion call(), le permite llamar a una funcion definida en otro lugar, pero en el contexto actual. El primer parametro especifica el valor this que desea usar al ejecutar la funcion, y los otros parametros son aquellos que deben pasarse a la funcion cuando se invoca
+		  
+		  // Como queremos que el constructor profesor tome los mismos parametros que el constructor persona que hereda, usamos la funcion call()
+		  Persona.call(this,nombre,apellido,edad);
+		  
+		  // Esta linea es una nueva propiedad de profesor
+		  this.tema = tema;
+		}
+		// Pudimos haber hecho est:
+		/*function Profesor (nombre, apellido, edad) {
+			this.nombres = {
+				nombre,
+				apellido
+			};
+			this.edad = edad;
+			
+			this.tema = tema;
+		};*/
+		// No lo hicimos porque seria volver a redefinir propiuedades que ya han sido creadas... por tanto, lo mejor es heredarlas
+		
+
+
+	// vamos a verificar las propiedades... hasta esta altura se puede observar que profesor aun no hereda las propiedades de persona
+	console.log(Object.getOwnPropertyNames(Profesor.prototype));
+	console.log(Object.getOwnPropertyNames(Persona.prototype));
+
+	// Vamos a hacer que profesor ahora si herede de persona sus metodos
+	// Con create() lo que hacemos es crear un nuevo objeto y este heredara de persona todos sus metodos disponibles
+	Profesor.prototype = Object.create(Persona.prototype);
+
+	// Acabamos de configurar profesor.prototype para que haga referencia a un objeto que hereda las propiedades de persona.prototype
+	console.log(Profesor.prototype.constructor);
+	
+	// El problema esta que dejo de ser profesor para convertirse en persona, y eso es un problema... para acomodar esto, hacemos lo siguiente:
+	Object.defineProperty(Profesor.prototype,'constructor',{
+		value:Profesor,
+		enumerable:false, // para que no aparezca en el bucle 'for in'
+		writable:true
+	});
+	// Ahora si esta lista la herencia
+	console.log(Profesor.prototype.constructor);
+
+	// Vamos a definir una nueva funcion de saludo en el constructor de Profesor
+	Profesor.prototype.saludo = function(){
+		let prefijo = 'Sr./Sra.';
+		alert('Hola. Mi nombre es ' + prefijo + '' + this.nombres.nombre + ' y enseño ' + this.tema + '.');
+	};
+	let profesor1 = new Profesor('Adrianno','Ferrer', 30,'Ingles');
+
+	console.log('***ACCEDIENDO A LOS DATOS DE PROFESOR***');
+	
+	console.log(profesor1.nombres.nombre);
+	console.log(profesor1.nombres.apellido);
+	console.log(profesor1.edad);
+	console.log(profesor1.tema);
+	profesor1.bio();
+	profesor1.saludo();
+	profesor1.despedida();
+
+	// Existe una biblioteda de javascript que hace la herencia mas facil y rapida, se llama  CoffeeScript http://coffeescript.org/#classes
+
+	/*EJERCICIO: Crear una clase estudiante que herede de persona y modificar el metodo de saludo para hacerlo de una forma informal*/
+
+	function Estudiante(nombre, apellido, edad, materia){
+		Persona.call(this,nombre,apellido,edad);
+		this.materia = materia;
+	}
+	Estudiante.prototype = Object.create(Persona.prototype);
+	/*Object.defineProperty(Estudiante.prototype,'constructor',{
+		value:Estudiante,
+		enumerable:false,
+		writable:true
+	});*/ 
+	// En vez de hacer lo antes mencionado, podemos hacer lo siguiente:
+	Estudiante.prototype.constructor = Estudiante;
+	console.log('***ESTUDIANTE***');
+	console.log(Estudiante.prototype.constructor);
+	Estudiante.prototype.saludo = function(){
+		alert('Mi nombre es ' + this.nombres.nombre + ' ' + this.nombres.apellido + ' y estudio ' + this.materia);
+	}
+	let estudiante1 = new Estudiante('Cesar','Ferrer',14,'Ingles');
+	console.log('***ACCEDIENDO A LOS DATOS DE ESTUDIANTE***');
+	console.log(estudiante1.nombres.nombre);
+	console.log(estudiante1.nombres.apellido);
+	console.log(estudiante1.edad);
+	console.log(estudiante1.materia);
+	estudiante1.bio();
+	estudiante1.saludo();
+	estudiante1.despedida();
+
+
+	/*HERENCIA SIN PARAMETROS*/
+	function ladrillo(){
+		this.ancho = 10;
+		this.alto = 20;
+	}
+
+	function ceramica(){
+		// solo se especifica el this ya que no se requieren propiedades del padre.
+		ladrillo.call(this);
+		this.opacidad = 0.5;
+		this.color = 'azul';
+	}
+    </script>
+  </body>
+</html>
+

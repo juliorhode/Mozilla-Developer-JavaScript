@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        // Creando una nueva clase
+        class Persona{
+            // Definimos el constructor
+            constructor(nombre,apellido,edad){
+                this.nombres = {
+                    nombre,
+                    apellido
+                };
+                this.edad = edad;
+            }
+            // En estos metodos hemos usado literales de plantilla el cual permite expresiones incrustadas. Los literales de plantillas estan encerrados por el caracter acento grave (``). Los marcadores de posicion se indican con el sigo dolar y entre llaves ${expresion}... Todo esto se pasa a una funcion la cual simplemente concatena las partes en una sola cadena, la expresion primero se ejecuta antes de ser concatenada. Para mas info: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_literals
+            
+            // Metodos de clase
+            saludo(){
+                console.log(`Hola soy ${this.nombres.nombre} ${this.nombres.apellido} y tengo ${this.edad}.`);
+                
+            };
+            despedida(){
+                console.log(`${this.nombres.nombre} ${this.nombres.apellido} ha abandonado la pagina.`);
+                
+            }
+        }
+
+        // Ahora creamos una instancia de objeto
+        let persona1 = new Persona('Julio','Ferrer',40);
+        console.log(persona1);
+        
+        persona1.saludo();
+        persona1.despedida();
+
+        /*CLASE PROFESOR QUE HEREDA DE PERSONA*/
+        class Profesor extends Persona{
+            // Tenemos nuestro constructor formado por las propiedades de persona, mas los propios de profesor
+            constructor(nombre,apellido,edad,tema,grado){
+                super(nombre,apellido,edad); // Cosntructor padre. Le pasamos los valores para inicializarlo
+                this.tema = tema;
+                this.grado = grado;
+            }
+        }
+        let profesor1 = new Profesor('Cesar','Ferrer',35,'Ingles','Cuarto Año');
+        console.log('***DATOS DE PROFESOR***');
+        profesor1.saludo();
+        profesor1.despedida();
+
+        
+    </script>
+</body>
+</html>

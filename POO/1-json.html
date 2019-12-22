@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        // JSON: Notacion de objetos javascript es un formato basado en texto para representacion de datos estructurados. Se usa comunmente para transmitir datos en aplicaciones web (del servidor al cliente).
+
+        // Se debe convertir en objeto javascript nativo cuando se desee acceder a los datos.
+
+        // Deserializacion: Conversion de una cadena en un objeto nativo.
+        // Serializacion: Conversion de un objeto nativo en una cadena para poder trasnmitirla a traves de la red.
+
+        // Los objetos JSON se pueden almacenar en su propio archivo con extension .json y un tipo MIME application/json
+
+        const superHeroes = {
+            "nombreEquipo" : "Escuadron de super heroes",
+            "cuidad" : "Ciudad Metro",
+            "creado" : 2016,
+            "baseSecreta" : "Super Torre",
+            "activo" : true,
+            "miembros" : [
+                {
+                    "nombre" : "Acuaman",
+                    "edad" : 29,
+                    "identidadSecreta" : "Adrianno",
+                    "poderes" : [
+                        "Resistencia a la radiacion",
+                        "Nada en el agua",
+                        "Cañon de agua"
+                    ]
+
+                },
+                {
+                    "nombre" : "Blaster",
+                    "edad" : 14,
+                    "identidadSecreta" : "Cesar",
+                    "poderes" : [
+                        "Millones de golpes",
+                        "Resistencia al daño",
+                        "Flexible"
+                    ]
+
+                }
+            ]
+        }
+
+        // Para acceder
+        console.log(superHeroes.cuidad);
+        console.log(superHeroes['activo']);
+        console.log(superHeroes['miembros'][0]['poderes'][2]);
+        
+        
+        
+    </script>
+</body>
+</html>

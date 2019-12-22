@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        // Creando una nueva clase
+        class Persona{
+            // Definimos el constructor
+            constructor(nombre,apellido,edad){
+                this.nombres = {
+                    nombre,
+                    apellido
+                };
+                this.edad = edad;
+            }
+            
+            // Metodos de clase
+            saludo(){
+                console.log(`Hola soy ${this.nombres.nombre} ${this.nombres.apellido} y tengo ${this.edad}.`);
+                
+            };
+            despedida(){
+                console.log(`${this.nombres.nombre} ${this.nombres.apellido} ha abandonado la pagina.`);
+                
+            }
+        }
+
+        /*CLASE PROFESOR QUE HEREDA DE PERSONA*/
+        class Profesor extends Persona{
+            // Tenemos nuestro constructor formado por las propiedades de persona, mas los propios de profesor
+            constructor(nombre,apellido,edad,tema,grado){
+                super(nombre,apellido,edad); // Cosntructor padre. Le pasamos los valores para inicializarlo
+
+                // Tema y grado son especificos de profesor. 
+
+                // Usamos _ para crear un valor separado en donde almacenar nustra propiedad de tema. SI ESTA CONVENCION NO SE USA, SE OBTENDRIA ERRORES CADA VEZ QUE SE LLAME GET O SET
+                this._tema = tema;
+                this.grado = grado;
+            }
+
+            get tema(){
+                return this._tema;
+            }
+
+            set tema(nuevoTema){
+                this._tema = nuevoTema;
+            }
+        }
+        // Creamos instancia de profesor
+        let profesor1 = new Profesor('Julio','Ferrer',40,'Programacion','Cuarto año');
+        console.log(profesor1.tema);
+        profesor1.tema = 'Logica'; 
+        console.log(profesor1.tema);
+
+        // Para mas informacion: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Inheritance_and_the_prototype_chain#Different_ways_to_create_objects_and_the_resulting_prototype_chain
+        
+
+    </script>
+</body>
+</html>
