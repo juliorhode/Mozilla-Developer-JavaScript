@@ -23,7 +23,9 @@ Lista de errores
 https://developer.mozilla.org/es/docs/Web/JavaScript/Reference/Errors
 
 
-continuar aqui: https://developer.mozilla.org/es/docs/Learn/JavaScript/Objects/JSON
+continuar aqui: https://developer.mozilla.org/es/docs/Learn/JavaScript/Objects/Adding_bouncing_balls_features
+
+Aqui hay un tutorial de canvas: https://developer.mozilla.org/es/docs/Web/Guide/HTML/Canvas_tutorial
 
 iconos:
 https://www.iconfinder.com/

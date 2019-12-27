@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+    <link href="https://fonts.googleapis.com/css?family=Faster+One" rel="stylesheet">
+    <link rel="stylesheet" href="2-json.css">
+</head>
+<body>
+    <header>
+
+    </header>
+
+    <section>
+
+    </section>
+
+    <script>
+        const header = document.querySelector('header');
+        const section = document.querySelector('section');
+        // Para obtener el JSON de una URL se utiliza XMLHttpRequest. Este ayuda a recuperar datos desde la red via JavaScript. 
+        const requestURL = 'https://mdn.github.io/learning-area/javascript/oojs/json/superheroes.json';
+
+        // Creamos la solicitud instanciando un objeto de solicitud desde el constructor XMLHttpRequest
+        const request = new XMLHttpRequest();
+
+        // Abrimos la solicitud con el metodo open()
+        request.open('GET',requestURL);
+        
+        // Vamos a indcar que se estará retornando un JSON y que esto sera convertido en segundo plano en un objeto JavaScript
+        request.responseType = 'json';
+
+        // Enviamos la solicitud
+        request.send();
+        
+        // Esto se ejecutara al cargar la pagina (metodo onload)
+        request.onload = function(){
+            // Vamos a almacenar la respuesta a la solicitud, disponible en la propiedad response
+            const superHeroes = request.response;
+            console.log(superHeroes);
+            
+            cargaHeader(superHeroes);
+            cargaSection(superHeroes);
+
+        }
+
+        function cargaHeader(jsonObj){
+            // Crearemos el titulo desde el JSON
+            // Creamos un h1
+            const miH1 = document.createElement('h1');
+            // Le asignamos el valor mediante el texto almacenado en la propiedad squadName del json
+            miH1.textContent = jsonObj['squadName'];
+            // Lo agregamos en el header
+            header.appendChild(miH1);
+
+            // Creamos un parrafo
+            const miParrafo = document.createElement('p');
+            // Le asignamos el valor mediante el texto almacenado en las propiedades homeTown y formed del json
+            miParrafo.textContent = 'Home Town: ' + jsonObj['homeTown'] + ' // Formed: ' + jsonObj['formed'] + ' // Secret Base: ' + jsonObj['secretBase'];
+            // Lo agregamos en el header
+            header.appendChild(miParrafo);
+        }
+
+        function cargaSection(jsonObj){
+            // Obtenemos los valores de la propieadad members del json (Esta conformado por un array)
+            const heroes = jsonObj['members'];
+
+            for(let i = 0; i < heroes.length; i++){
+                // Creamos un articulo
+                const miArticulo = document.createElement('article');
+                // Creamos un sub titulo
+                const miH2 = document.createElement('h2');
+                // Creammos parrafos
+                const miParrafo1 = document.createElement('p');
+                const miParrafo2 = document.createElement('p');
+                const miParrafo3 = document.createElement('p');
+                // Creamos una lista      
+                const miLista = document.createElement('ul');
+
+                miH2.textContent = heroes[i].name;
+                miParrafo1.textContent = 'Identidad Secreta: ' + heroes[i].secretIdentity
+                miParrafo2.textContent = 'Edad: ' + heroes[i].age + ' años.';
+                miParrafo3.textContent = 'Super Poderes:'
+
+                const superPoderes = heroes[i].powers;
+                // console.log(superPoderes);
+
+                for(let j = 0; j < superPoderes.length; j++){
+                    const listaItems = document.createElement('li');
+                    listaItems.textContent = superPoderes[j];
+                    miLista.appendChild(listaItems);
+                }
+                
+                // Añadimos los elementos al article
+                miArticulo.appendChild(miH2);
+                miArticulo.appendChild(miParrafo1);
+                miArticulo.appendChild(miParrafo2);
+                miArticulo.appendChild(miParrafo3);
+                miArticulo.appendChild(miLista);
+
+                // Colocamos todos los elementos creados al section
+                section.appendChild(miArticulo);
+            }
+        }
+    </script>
+</body>
+</html>
