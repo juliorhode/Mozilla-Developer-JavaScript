@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Simple synchronous JavaScript example</title>
+  </head>
+  <body>
+    <button>Click me</button>
+    <script>
+      // Un ejemplo de una devolución de llamada asíncrona es el segundo parámetro del método addEventListener(). El primer parámetro es el tipo de evento que se escuchará, y el segundo parámetro es una función de devolución de llamada que se invoca cuando se dispara el evento.
+
+      // Cuando pasamos una función de devolución de llamada como argumento a otra función, solo estamos pasando la referencia de la función como argumento, es decir, la función de devolución de llamada no se ejecuta de inmediato. Se "devuelve" (callback de ahí el nombre) de forma asíncrona en algún lugar dentro del cuerpo de la función que lo contiene. La función que contiene es responsable de ejecutar la función de devolución de llamada cuando llegue el momento.
+      const btn = document.querySelector('button');
+      btn.addEventListener('click', () => {
+        alert('Me hociste clic');
+
+        let parrafo = document.createElement('p');
+        parrafo.textContent = 'Este es un parrafo recien agregado.';
+        document.body.appendChild(parrafo);
+      });
+      
+    </script>
+  </body>
+</html>

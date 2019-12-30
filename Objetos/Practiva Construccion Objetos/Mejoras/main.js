@@ -13,19 +13,29 @@ function aleatorio(min,max) {
     return num;
 }
 
+function Forma(x, y, velX, velY, exist){
+  // Coordenadas horizontal y vertical
+  this.x = x;
+  this.y = y;
+  // Velocidad horizontal y vertical
+  this.velX = velX;
+  this.velY = velY;
+
+  this.exist = exist;
+}
 // Creamos el constructor
-function Pelota(x,y,velX,velY,color,tamaño){
-    // Coordenadas horizontal y vertical
-    this.x = x;
-    this.y = y;
-    // Velocidad horizontal y vertical
-    this.velX = velX;
-    this.velY = velY;
+function Pelota(x, y, velX, velY, exist, color, tamaño){
+    Forma.call(this, x, y, velX, velY, exist)
     // Color para cada pelota
     this.color = color;
     // Tamaño para cada pelota
     this.tamaño = tamaño;
 }
+
+// Configuramos el prototype del constructor
+Pelota.prototype = Object.create(Forma.prototype);
+Pelota.prototype.constructor = Pelota;
+
     // Esta funcion va a permitir que la pelota se dibuje en la pantalla
     Pelota.prototype.dibuja = function(){
         // Indicamos que queremos dibujar una forma en el lienzo
@@ -48,7 +58,7 @@ function Pelota(x,y,velX,velY,color,tamaño){
         50
         prueba.dibuja(); Dibuja la pelota
         */
-    }
+    };
     // Para poder moverla, necesitamos una funcion de actualizacion
     Pelota.prototype.actualiza = function(){
         // Verificamos si la pelota ha llegado al borde del lienzo. Si es asi, invertimos la polaridad de la velocidad para que la pelota viaje en direccion opuesta. Ejemplo: Si la pelota viajaba hacia arriba(velY positivo) entonces la velocidad vertical cambia para que comience a ir hacia abajo(velY negativo). 
@@ -74,7 +84,7 @@ function Pelota(x,y,velX,velY,color,tamaño){
         this.x += this.velX;
         // Se agrega el valor de velY a la coordenada y
         this.y += this.velY;
-    }
+    };
 
     // Verificamos si la pelota actual ha chocado con otra
     Pelota.prototype.detectaColision = function(){
@@ -87,13 +97,13 @@ function Pelota(x,y,velX,velY,color,tamaño){
                 const distancia = Math.sqrt(dx * dx + dy * dy);
 
                 // Si se detecta la colision, le damos un nuevo color... Para simulasiones mas realistas se pueden usar bibliotecs de juegos o fisica como PhysicsJS , matter.js , Phaser, etc
-                if (distancia < this.tamaño + pelotas[j].tamaño) {
+                if (distancia < this.tamaño + pelotas[j].tamaño && pelotas[j.exist]) {
                     pelotas[j].color = this.color = 'rgb(' + aleatorio(0, 255) +',' + aleatorio(0, 255) + ',' + aleatorio(0, 255) + ')';
                 }
             }
         }
-    }
-    let pelotas =[];
+    };
+    const pelotas =[];
     while (pelotas.length < 25) {
         let tamaño = aleatorio(10,20);
         let pelota = new Pelota(
@@ -114,12 +124,14 @@ function Pelota(x,y,velX,velY,color,tamaño){
         ctx.fillRect(0, 0, width, height);
         // Recorremos todas las pelotas creadas
         for(let i = 0; i < pelotas.length; i++){
-            // Ejecutamos la funcion para dibujar
-            pelotas[i].dibuja();
-            // Ejecutamos la funcion para realizar las actualizciones de posicion y velocidad
-            pelotas[i].actualiza();
-            // Ejecutamos la funcion que verifica la colision
-            pelotas[i].detectaColision();
+            if (pelotas[i].exist) {
+              // Ejecutamos la funcion para dibujar
+              pelotas[i].dibuja();
+              // Ejecutamos la funcion para realizar las actualizciones de posicion y velocidad
+              pelotas[i].actualiza();
+              // Ejecutamos la funcion que verifica la colision
+              pelotas[i].detectaColision();
+            }
         }
         // requestAnimationFrame informa al navegador que se quiere realizar una animacion y solicita al navegador que programe el repintado de la ventana para el proximo ciclo de animacion. Este metodo acepta como argumento una funcion
         requestAnimationFrame(loop);

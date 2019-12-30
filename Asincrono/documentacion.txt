@@ -1,0 +1,71 @@
+Cuando un navegador ejecuta una gran porcion de codigo sin devolver el control al navegador (que parece congelado), se llama bloqueo.
+
+El navegador no puede continuar manejando la entrada de usuario y realizar otras tareas hasta que la aplicacion web regrese el control del procesador.
+
+Todo esto se debe porque javascript es de un solo subproceso.
+
+Hilos (Threads)
+***************
+Es un proceso unico que un programa puede usar para completar tareas. Cada hilo solo puede hacer una tarea a la vez
+
+Tarea A -> Tarea B -> Tarea C 
+
+Cada tarea se ejecutara de forma secuencial. Una tarea debe completarse antes de que se pueda iniciar la siguiente.
+
+javascriptes e un solo subproceso. Incluso con multiples nucleos, solo puede hacer que ejecute tareas en un solo hilo, llamado hilo principal.
+
+Luego surgio lo que se llama Web Workers, que permiten enviar parte del procesamiento de javascript a un hilo separado llamado worker, para que pueda ejecutar multiples fragmentos simultaneamente.
+
+La ventaja de esto es que se puede realizar un procesamiento de codigo laborioso en un hilo separado, permitiendo que el hilo principal se ejecute sin ser bloqueado / ralentizado.
+
+Un worker es un objeto creado utilizando un constructor (por ejemplo Worker() ) que ejecuta un archivo javascript. Los Workers se ejecutan en otro contexto global que es diferente a la de window. El contexto esta representado por un objeto DedicatedWorkerGlobalScope (para worker dedicados - que son utilizados por un solo script) o SharedWorkerGlobalScope (para worker compartidos - que se comparten entre multiples script).
+
+Se puede ejecutar el codigo que se quiera salvo algunas excepciones como:
+1) no se puede manipular el DOM desde un worker 
+2) usar algunos metodos y propiedades predeterminados por el objeto window (si se pueden unsar los WebSockets y mecanismos de almacenamiento de datos como IndexDB). Los datos se envian entre los worker y el hilo principal a travez de un sistema de mensajes. Ambas partes envian mensajes utilizando postMessage() y responden a travez del controlador de eventos onmessage.
+
+Los worker pueden a su vez generar nuevos worker siempre y cuando esten alojados en el mismo origen que la pagina principal. Estos pueden usar XMLHttpRequest para E/S de red, con excepcion de atributos responseXML y channel en XMLHttpRequest porque siempre devuleven null.
+
+Para mas informacion: http://translate.google.com/translate?hl=es&sl=auto&tl=es&u=https%3A%2F%2Fdeveloper.mozilla.org%2Fen-US%2Fdocs%2FWeb%2FAPI%2FWeb_Workers_API
+
+
+
+CODIGO ASINCRONO
+****************
+Los navegadores nos permiten ejecutar ciertas operaciones de forma asincrona, y aqui entran las Promesas.
+
+Una Promise es un objeto que representa la finalizacion o falla eventual de una opracion asincrona.
+
+En esencia es un objeto devuleto al que adjunta devoluciones de llamada, en lugar de pasar devoluciones de llamada a una funcion.
+
+Garantias de las Promesas:
+
+1) Las devoluciones de llamada nunca se llamaran antes que se complete la ejecucion actual del bucle de eventos de javascript.
+2) Las devoluciones de llamada agregadas con then() incluso despues del exito o el fracaso de la operacion asincrona, se invocaran como se indico anteriormente.
+3) Se pueden agregar varias devoluciones de llamada llamando a then() varias veces. Cada devolucion de llamada se ejecuta una tras otr, en el orden en que se insertaron.
+
+Mas informacion: https://translate.googleusercontent.com/translate_c?depth=1&hl=es&rurl=translate.google.com&sl=auto&sp=nmt4&tl=es&u=https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Using_promises&xid=17259,15700022,15700186,15700191,15700256,15700259,15700262,15700265,15700271,15700283&usg=ALkJrhgzYrraH3Fcj1AIpLYjzhRCgqWJSg
+
+Ejemplo: 
+Tema principal: Tarea A Tarea B
+     Promesa: | __async operation__ | 
+Como la operación está ocurriendo en otro lugar, el subproceso principal no se bloquea mientras se procesa la operación asincrónica.
+
+DEVOLUCION DE LLAMADAS ASINCRONAS
+*********************************
+Son funciones que se especifican como argumentos al llamar a una función que comenzará a ejecutar código en segundo plano. Cuando el código de fondo termina de ejecutarse, llama a la función de devolución de llamada para informarle que el trabajo está hecho o para informarle que ha sucedido algo de interés. 
+
+Promesas
+*********
+Las promesas son el nuevo estilo de código asíncrono que verá utilizado en las API web modernas.  La promesa es un objeto que representa la finalización o el fracaso de la operación asincrónica. Representa un estado intermedio, por así decirlo. En esencia, es la forma en que el navegador dice "Prometo responderle lo antes posible", de ahí el nombre "promesa".
+
+Un buen ejemplo es la API fetch().
+
+El método fetch() inicia el proceso de recuperar un recurso de la red, devolviendo una promesa que se cumple una vez que la respuesta está disponible. 
+
+Promesas versus devoluciones de llamada
+
+Puede encadenar múltiples operaciones asíncronas juntas utilizando múltiples operaciones .then() , pasando el resultado de uno al siguiente como entrada. Esto es mucho más difícil de hacer con las devoluciones de llamada, que a menudo termina con una desordenada "pirámide de la fatalidad" (también conocida como infierno de devolución de llamada ).
+Las devoluciones de llamada de promesa siempre se llaman en el orden estricto en que se colocan en la cola de eventos.
+El manejo de errores es mucho mejor: todos los errores son manejados por un solo bloque .catch() al final del bloque, en lugar de ser manejados individualmente en cada nivel de la "pirámide".
+Las promesas evitan la inversión del control, a diferencia de las devoluciones de llamada de estilo antiguo, que pierden el control total de cómo se ejecutará la función al pasar una devolución de llamada a una biblioteca de terceros. 
