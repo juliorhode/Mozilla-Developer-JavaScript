@@ -1,0 +1,24 @@
+Las promesas son un objeto que representa un estado intermedio de una operación; es decir, es una promesa de que un resultado de algún tipo será devuelto en algún momento en el futuro. No hay garantía de cuándo exactamente se completará la operación y se devolverá el resultado, pero hay una garantía de que cuando el resultado esté disponible, o la promesa falle, el código que proporcione se ejecutará para hacer algo más con un resultado exitoso o manejar un caso de falla.
+
+Las promesas son similares a las de los oyentes de eventos, pero con algunas diferencias:
+
+1) Una promesa solo puede tener éxito o fracasar una vez. No puede tener éxito o fallar dos veces y no puede cambiar de éxito a fracaso o viceversa una vez que la operación se ha completado.
+
+2) Si una promesa ha tenido éxito o ha fallado y luego agrega una devolución de llamada correcta / incorrecta, se llamará a la devolución de llamada correcta, aunque el evento se haya realizado antes. 
+
+Pasos de las promesas:
+***********************
+1) Cuando se crea una promesa, no está en un estado de éxito o fracaso. Se dice que está pendiente.
+2) Cuando una promesa retorna, se dice que está resuelta .
+    1) Se dice que se cumple una promesa resuelta con éxito. Devuelve un valor, al que se puede acceder encadenando un bloque .then() al final de la cadena de promesa. La función ejecutora dentro del bloque .then() contendrá el valor de retorno de la promesa.
+
+    2) Se dice que una promesa resuelta fallida es rechazada . Devuelve un motivo , un mensaje de error que indica por qué se rechazó la promesa. Se puede acceder a este motivo encadenando un bloque .catch() al final de la cadena de promesa. 
+
+Si se desea ejecutar un codigo luego que se hayan cumplido todas las promesas, se debe utilizar Promise.all
+Promise.all toma una matriz de promesas como parametro de entrada y devuleve un nuevo objeto.
+
+Ejemplo: 
+Promise.all ([a, b, c]) .then (valores => {
+   ...
+ }); 
+ Si todos cumplen, la función ejecutora del bloque encadenado .then() pasará una matriz que contiene todos esos resultados como un parámetro. Si alguna de las promesas pasa a Promise.all() rechazada, se rechazará todo el bloque.

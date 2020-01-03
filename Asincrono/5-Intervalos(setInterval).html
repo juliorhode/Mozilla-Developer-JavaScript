@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Aplicación de bienvenida</title>
+
+    <style>
+      p {
+        font-family: sans-serif;
+      }
+    </style>
+  </head>
+  <body>
+    <p class="reloj"></p>
+    <script>
+      function muestraHora() {
+        // Creamos un objeto Date()
+        let date = new Date();
+        // Extraemos una cadena de tiempo
+        let time = date.toLocaleTimeString();
+        // Lo mostramos en el parrafo que contiene la clase reloj
+        document.querySelector('.reloj').textContent = time;
+      }
+      muestraHora();
+      // Inidicamos que la funcion muestraHora() se ejecutara una vez cada segundo
+      const creaReloj = setInterval(muestraHora, 1000);
+
+      // Con esto cancelamos la accion
+      clearInterval(creaReloj);
+    </script>
+  </body>
+</html>

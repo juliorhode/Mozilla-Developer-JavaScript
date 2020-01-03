@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Aplicación de bienvenida</title>
+
+    <style>
+      div {
+        /* display: flex; */
+        justify-content: space-between;
+        margin-bottom: 10px;
+      }
+    </style>
+  </head>
+  <body>
+    <div>
+      <label for="name">Ingresa un nombre:</label>
+      <input type="name" id="name" required />
+    </div>
+    <div>
+      <button id="btnSaludo">Saludo!</button>
+    </div>
+    <p><button id="btnCancela">Cancel greeting</button></p>
+    <script>
+      const nombre = document.getElementById('name');
+      const botonSaluda = document.getElementById('btnSaludo');
+      const botonCancela = document.getElementById('btnCancela');
+
+        /* Con funcion anonima
+        let saludo = setTimeout( function(){
+            alert('Hola, Sr. Julio Rhode');
+        },2000);
+        */
+
+        // Con una funcion definida
+        function saludo(nombre) {
+          alert("Hola, Sr. " + nombre);
+        };
+
+        // Definimos variable global
+        let miSaludo;
+
+        // Colocamos a la escucha el boton al ebento click, y por medio de la funcion anonima establecemos el tiempo de espera para invocar la funcion saludo, pasandole adicionlamente el valor del campo de texto
+        botonSaluda.addEventListener('click', ()=>{
+            // alert('Funcionando');
+             miSaludo = setTimeout(saludo, 2000, nombre.value);
+        });
+        
+        // Colocamos a la escucha el boton de cancelar al evento click, y por medio de la funcion anonima cancelamos el tiempo de espera
+        botonCancela.addEventListener('click', ()=>{
+            clearTimeout(miSaludo);
+            console.log('Saludo Cancelado');
+            
+        })
+
+    </script>
+  </body>
+</html>

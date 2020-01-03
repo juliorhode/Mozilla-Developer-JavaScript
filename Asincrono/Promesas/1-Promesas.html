@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Promesas</title>
+</head>
+<body>
+    
+    <script>
+        /*
+        // Ejecutamos el metodo fetch() para obtener la imagen y almacenarla en una variable
+        let promesa = fetch('java.png'); 
+        
+        // Ejecutamos el metodo blob(), en esta respuesta nos aseguramos que el cuerpo de la respuesta esta completamente descargado y, cuando este disponible, trasnformarlo a un objeto blob para que podamos hacer algo.
+        let promesa2 = promesa.then( response => response.blob() );
+        // El metodo blob() devuleve una promesa cuando se completa con exito
+        let promesa3 = promesa2.then( miBlob => {
+            // Aquí estamos ejecutando el método URL.createObjectURL() , pasándolo como un parámetro que el Blob devolvió cuando se cumple la segunda promesa. Esto devolverá una URL que apunta al objeto. Luego creamos un elemento <img> , establecemos su atributo src para que sea igual a la URL del objeto y lo agregamos al DOM,
+
+            // Creamos un objeto URL que apunte al objeto blob
+            let objURL = URL.createObjectURL (miBlob);
+            // Creamos un elemento <img> para mostrar el blob (imagen)
+            let imagen = document.createElement('img');
+            // Establecemos el src de <img> en la URL del objeto para que la imagen se muestre
+            imagen.src = objURL;
+            // Agregamos el elemento <img> al DOM
+            document.body.appendChild(imagen);
+        });
+        let error = promesa3.catch( e => {
+            // Si hay un problema, registramos un mensaje de error en la consola
+            console.log('Ha ocurido un error: ' + e.message);
+            
+        });
+        */
+
+        // Esto se puede simplificar de esta forma:
+        fetch('java.png')
+            .then( response => response.blob() )
+            .then( miBlob => {
+                let objURL = URL.createObjectURL (miBlob);
+                let imagen = document.createElement('img');
+                imagen.src = objURL;
+                document.body.appendChild(imagen);
+            })
+            .catch(e =>{
+                console.log('Ha ocurido un error: ' + e.message);
+            });
+
+            // Nota: El valor devuelto por una promesa cumplida se convierte en el parámetro pasado a la siguiente función ejecutora del bloque .then()
+    </script>
+</body>
+
+</html>

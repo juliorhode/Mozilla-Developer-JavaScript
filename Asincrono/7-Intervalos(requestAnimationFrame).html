@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Request Animation Frame</title>
+    <style>
+            html {
+              background-color: white;
+              height: 100%;
+            }
+            body {
+                height: inherit;
+              background-color: rgb(255, 0, 0);
+              margin: 0;
+              display: flex;
+              justify-content: center;
+              align-items: center;
+              
+            }
+            div {
+              font-size: 6rem;
+              display: inline-block;
+                margin: 100px;
+            }
+           
+          </style>
+        </head>
+        <body>
+      
+          <div class="primero">+</div>
+          <div class="segundo">↻</div>
+
+          <script>
+            //  Se almacena la referencia al elemento div, se crea un contador de rotación, un tiempo de inicio nulo y una variable no inicializada para almacenar la llamada en requestAnimationFrame () 
+            const miDiv1 = document.querySelector('.primero');
+            const miDiv2 = document.querySelector('.segundo');
+            let cuentaRotacion = 0;
+            let inicio = null;
+            let animacion;
+
+            // Ceamos funcion que se encargara de dibujar
+            function draw(timestamp) {
+              if(!inicio) {
+                inicio = timestamp;
+              }
+              cuentaRotacion = (timestamp - inicio) / 3;
+              
+              // 360° es el circulo completo
+              if(cuentaRotacion > 359) {
+                // Se establece el valor del modulo (resto de la division por 360) para que la animacion del circulo pueda continuar sin interrupcion. Esto define el angulo que vamos a pasar a la funcion rotate() de CSS
+                cuentaRotacion %= 360;
+              }
+              // La cantidad de rotacion es de acuerdo a un angulo. Ejemplo: rotate(180deg) esto es 180°
+              miDiv1.style.transform = 'rotate(' + cuentaRotacion + 'deg)';
+              miDiv2.style.transform = 'rotate(' + cuentaRotacion + 'deg)';
+             
+              // Call the next frame in the animation
+              animacion = requestAnimationFrame(draw);
+            }
+            draw();
+          </script>
+</body>
+</html>

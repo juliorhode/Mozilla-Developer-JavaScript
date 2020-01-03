@@ -64,8 +64,43 @@ Un buen ejemplo es la API fetch().
 El método fetch() inicia el proceso de recuperar un recurso de la red, devolviendo una promesa que se cumple una vez que la respuesta está disponible. 
 
 Promesas versus devoluciones de llamada
+***************************************
 
-Puede encadenar múltiples operaciones asíncronas juntas utilizando múltiples operaciones .then() , pasando el resultado de uno al siguiente como entrada. Esto es mucho más difícil de hacer con las devoluciones de llamada, que a menudo termina con una desordenada "pirámide de la fatalidad" (también conocida como infierno de devolución de llamada ).
-Las devoluciones de llamada de promesa siempre se llaman en el orden estricto en que se colocan en la cola de eventos.
-El manejo de errores es mucho mejor: todos los errores son manejados por un solo bloque .catch() al final del bloque, en lugar de ser manejados individualmente en cada nivel de la "pirámide".
-Las promesas evitan la inversión del control, a diferencia de las devoluciones de llamada de estilo antiguo, que pierden el control total de cómo se ejecutará la función al pasar una devolución de llamada a una biblioteca de terceros. 
+1) Puede encadenar múltiples operaciones asíncronas juntas utilizando múltiples operaciones .then() , pasando el resultado de uno al siguiente como entrada. Esto es mucho más difícil de hacer con las devoluciones de llamada, que a menudo termina con una desordenada "pirámide de la fatalidad" (también conocida como infierno de devolución de llamada ).
+
+2) Las devoluciones de llamada de promesa siempre se llaman en el orden estricto en que se colocan en la cola de eventos.
+
+3) El manejo de errores es mucho mejor: todos los errores son manejados por un solo bloque .catch() al final del bloque, en lugar de ser manejados individualmente en cada nivel de la "pirámide".
+
+4) Las promesas evitan la inversión del control, a diferencia de las devoluciones de llamada de estilo antiguo, que pierden el control total de cómo se ejecutará la función al pasar una devolución de llamada a una biblioteca de terceros. 
+
+Tiempos de espera
+******************
+JavaScript tiene disponibles para ejecutar código de forma asíncrona después de que haya transcurrido un período de tiempo establecido, o en un intervalo regular (por ejemplo, un número establecido de veces por segundo). Estos son:
+
+ setTimeout()
+    Ejecuta un bloque de código especificado una vez que haya transcurrido un tiempo especificado. 
+setInterval()
+    Ejecute un bloque de código específico repetidamente con un retraso de tiempo fijo entre cada llamada. 
+requestAnimationFrame()
+    La versión moderna de setInterval(), ejecuta un bloque de código específico antes de que el navegador vuelva a pintar la pantalla, lo que permite que se ejecute una animación a una velocidad de fotogramas adecuada, independientemente del entorno en el que se ejecute. 
+
+
+setTimeout () funciona perfectamente cunado se necesita ejecutar el codigo una vez despues de un periodo de tiempo establecido.
+
+acepta los siguientes parametros:
+1) Una función para ejecutar, o una referencia a una función definida en otra parte.
+
+2) Un número que representa el intervalo de tiempo en milisegundos (1000 milisegundos equivale a 1 segundo) a esperar antes de ejecutar el código. Si especifica un valor de 0 (u omite este valor por completo), la función se ejecutará lo antes posible.
+
+3) Cero o más valores que representan los parámetros que desea pasar a la función cuando se ejecuta.
+
+NOTA: La cantidad de tiempo especificada (o el retraso) NO es el tiempo garantizado para la ejecución, sino el tiempo mínimo para la ejecución. 
+
+setInterval () este funciona de una manera similar a setTimeout() pero este ejecuta el codigo una y otra vez, por ejemplo en animaciones.
+
+A este se le pasa como primer parametro el que se ejecutara repetidamente de acuerdo a la cantidad en milisegundos dada por el segundo parametro. Tambien se le puede pasar cualquier parametro requerido por la funcion que se esta ejecutando como parametro posterior a la llamada de setInterval()
+
+requestAnimationFrame() es una funcion de bucle especializada creada para ejecutar animaciones de manera eficiente en el navegador. Es la version moderna de setInterval(). Ejecuta un bloque de código específico antes de que el navegador vuelva a pintar la pantalla, lo que permite que se ejecute una animación a una velocidad de cuadro adecuada, independientemente del entorno en el que se esté ejecutando.
+
+El método toma como argumento una devolución de llamada para ser invocada antes del repintado. 

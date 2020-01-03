@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Promesas</title>
+</head>
+<body>
+    
+    <script>
+        let a = fetch('java.png');
+        let b = fetch('tea.jpg');
+        let c = fetch('text1.txt');
+
+        // Definimos la funcion pasandole una url y el tipo de archivo
+        function busqueda( url, tipo){
+            // Retornamos la busqueda del recurso en la url especificada y la encadenamos a una promesa que devueve el tipo de objeto
+            // La palabra clave return al comienzo tiene un efecto que es ejecutar toda la cadena y luego ejecutar el resultado final, es decir, devolvera blob o texto como valor de retorno
+            return fetch( url ) .then( response =>{
+                if (tipo === 'blob') {
+                    return response.blob();
+                }else if (tipo === 'text') {
+                    return response.text();
+                }
+            })
+            // Encadenamos una llamada .catch() , para manejar cualquier caso de error que pueda surgir con cualquiera de las promesas pasadas en la matriz a .all() . Si alguna de las promesas se rechaza, el bloque catch le permitirá saber cuál tuvo un problema. 
+            .catch( e => {
+                console.log('Ha ocurido un error: ' + e.message);
+                
+            });
+        }
+        let java = busqueda ('java.png', 'blob');
+        let tea = busqueda ('tea.jpg', 'blob');
+        let description = busqueda ('text1.txt', 'text');
+
+        // Esto toma una matriz que contiene las promesas como parámetro. El ejecutor solo se ejecutará cuando se resuelvan las tres promesas; cuando eso sucede, se pasará una matriz que contiene los resultados de las promesas individuales, algo así como [resultados de java, resultados de tea, resultados de description].
+        Promise.all([java, tea, description]) .then( valores =>{
+            console.log(valores);
+            
+            // Almacenamos cada valor devuelto por las promesas en variables
+            let objURL1 = URL.createObjectURL(valores[0]);
+            let objURL2 = URL.createObjectURL(valores[1]);
+            let objText = valores[2];
+
+            // Creamos elementos <img>
+            let imagen1 = document.createElement('img');
+            let imagen2 = document.createElement('img');
+
+            // Asignamos el src a cada <img>
+            imagen1.src = objURL1;
+            imagen2.src = objURL2;
+
+            // Colocamos los <img> al body para mostrarlos
+            document.body.appendChild(imagen1);
+            document.body.appendChild(imagen2);
+
+            // Creamos el elemento <p>  
+            let parrafo = document.createElement('p');
+            // Asignamos el valor
+            parrafo.textContent = objText;
+
+            // Colocamos el <p> al body para mostrarlo
+            document.body.appendChild(parrafo);
+
+
+
+        });
+
+    </script>
+</body>
+</html>

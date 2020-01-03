@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en-US">
+  <head>
+    <meta charset="utf-8" />
+    <title>Cronometro</title>
+    <style>
+      p {
+        font-family: sans-serif;
+      }
+    </style>
+  </head>
+  <body>
+    <p class="cronometro"></p>
+
+    <p>
+      <button class="inicio">Inicio</button>
+      <button class="resetear">Resetear</button>
+      <button class="detener">Detener</button>
+    </p>
+
+    <script>
+      // Definimos variable contador para el numero de segundos e iniciamos en 0
+      let cuentaSegundos = 0;
+
+      // Definimos variable global para almacenar el intervalo cuando está activo
+      let reloj;
+
+      // Almacenamos una referencia al párrafo de visualización en una variable
+      let parrafoCronometro = document.querySelector(".cronometro");
+
+      // Funcion que se va a encargar de calcular horas, minutos, segundos y mostrar el contador
+      function muestraContador() {
+        // Calculamos las horas, minutos, segundos
+        let hora = Math.floor(cuentaSegundos / 3600);
+        let minutos = Math.floor((cuentaSegundos % 3600) / 60);
+        let segundos = Math.floor(cuentaSegundos % 60);
+
+        // Mostramos un cero (0) a la izquierda de la hora si los valores son menores a 10, sino se muestra la hora
+        let muestraHora = hora < 10 ? "0" + hora : hora;
+        // Mostramos un cero (0) a la izquierda de los minutos si los valores son menores a 10, sino se muestran los minutos
+        let muestraMinutos = minutos < 10 ? "0" + minutos : minutos;
+        // Mostramos un cero (0) a la izquierda de los segundos si los valores son menores a 10, sino se muestran los segundos
+        let muestraSegundos = segundos < 10 ? "0" + segundos : segundos;
+
+        // Escribe el tiempo de visualización actual del cronómetro en parrafoCronometro
+        parrafoCronometro.textContent =
+          muestraHora + ":" + muestraMinutos + ":" + muestraSegundos;
+
+        cuentaSegundos++;
+        // console.log(cuentaSegundos);
+      }
+
+      // Almacenamos una referencia al boton de inicio en una variable
+      let btnInicio = document.querySelector(".inicio");
+      // Almacenamos una referencia al boton de resetear en una variable
+      let btnResetear = document.querySelector(".resetear");
+      // Almacenamos una referencia al boton de detener en una variable
+      let btnDetener = document.querySelector(".detener");
+
+      btnDetener.disabled = true;
+      // Cuando se presiona el botón de inicio, comience a ejecutar muestraContador () una vez por segundo
+      btnInicio.addEventListener("click", () => {
+        console.log("Inicio");
+        reloj = setInterval(muestraContador, 1000);
+        // Desactivamos el boton de inicio
+        btnInicio.disabled = true;
+        // Activamos el boton de detener
+        btnDetener.disabled = false;
+      });
+
+      btnResetear.addEventListener("click", () => {
+        console.log("Resetear");
+        // Mostramos en cero 
+        parrafoCronometro.textContent = "00:00:00";
+        // Iniciamos en cero (0) 
+        cuentaSegundos = 0;
+        
+      });
+
+      btnDetener.addEventListener("click", () => {
+        console.log("Detener");
+        clearInterval(reloj);
+        // Activamos el boton de inicio
+        btnInicio.disabled = false;
+        // Desactivamos el boton de detener
+        btnDetener.disabled = true;
+      });
+    </script>
+  </body>
+</html>
